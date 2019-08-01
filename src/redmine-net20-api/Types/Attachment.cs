@@ -185,6 +185,7 @@ namespace RedmineClient.Types
         public override bool Equals(Attachment other)
         {
             if (other == null) return false;
+            
             return (Id == other.Id
                 && FileName == other.FileName
                 && FileSize == other.FileSize
