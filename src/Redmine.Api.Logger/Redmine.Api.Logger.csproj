@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Build">
+        <TargetFramework>net45</TargetFramework>
+        <TargetFrameworks>net20;net40;net45;net451;net452;net46;net461;net462;net47;net471;net472;netstandard20</TargetFrameworks>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <RootNamespace>Redmine.Api.Logger</RootNamespace>
+        <AssemblyName>Redmine.Api.Logger</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DefineConstants>TRACE</DefineConstants>
+        <Platform>x64 or x86</Platform>
+        <Configurations>Debug;Release</Configurations>
+        <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    </PropertyGroup>
+
+</Project>

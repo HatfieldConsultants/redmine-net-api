@@ -1,5 +1,5 @@
 ﻿/*
-   Copyright 2011 - 2019 Adrian Popescu.
+   Copyright 2011 - 2016 Adrian Popescu
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,32 +14,17 @@
    limitations under the License.
 */
 
-namespace Redmine.Net.Api.Logging
+#if NET20
+// ReSharper disable CheckNamespace
+namespace System.Runtime.CompilerServices
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum LoggingEventType
+    /// <seealso cref="System.Attribute" />
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method, AllowMultiple=false, Inherited=false)]
+    public class ExtensionAttribute: Attribute
     {
-        /// <summary>
-        /// The debug
-        /// </summary>
-        Debug,
-        /// <summary>
-        /// The information
-        /// </summary>
-        Information,
-        /// <summary>
-        /// The warning
-        /// </summary>
-        Warning,
-        /// <summary>
-        /// The error
-        /// </summary>
-        Error,
-        /// <summary>
-        /// The fatal
-        /// </summary>
-        Fatal
-    };
+    }
 }
+#endif

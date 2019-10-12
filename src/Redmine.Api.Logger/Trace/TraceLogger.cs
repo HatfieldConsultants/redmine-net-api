@@ -16,18 +16,19 @@
 
 using System;
 
-namespace Redmine.Net.Api.Logging
+namespace Redmine.Api.Logger.Trace
 {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="Redmine.Net.Api.Logging.ILogger" />
-    public sealed class ConsoleLogger : ILogger
+    public sealed class TraceLogger : ILogger
     {
         private static readonly object locker = new object();
         /// <summary>
+        /// Logs the specified entry.
         /// </summary>
-        /// <param name="entry"></param>
+        /// <param name="entry">The entry.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         public void Log(LogEntry entry)
         {
             lock (locker)
@@ -35,20 +36,22 @@ namespace Redmine.Net.Api.Logging
                 switch (entry.Severity)
                 {
                     case LoggingEventType.Debug:
-                        Console.WriteLine(entry.Message);
+                        System.Diagnostics.Trace.WriteLine(entry.Message, "Debug");
                         break;
                     case LoggingEventType.Information:
-                        Console.WriteLine(entry.Message);
+                        System.Diagnostics.Trace.TraceInformation(entry.Message);
                         break;
                     case LoggingEventType.Warning:
-                        Console.WriteLine(entry.Message);
+                        System.Diagnostics.Trace.TraceWarning(entry.Message);
                         break;
                     case LoggingEventType.Error:
-                        Console.WriteLine(entry.Message);
+                        System.Diagnostics.Trace.TraceError(entry.Message);
                         break;
                     case LoggingEventType.Fatal:
-                        Console.WriteLine(entry.Message);
+                        System.Diagnostics.Trace.WriteLine(entry.Message, "Fatal");
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }

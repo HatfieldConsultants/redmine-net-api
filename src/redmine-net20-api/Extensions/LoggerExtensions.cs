@@ -14,39 +14,39 @@
    limitations under the License.
 */
 
-using Redmine.Net.Api.Logging;
-
-namespace Redmine.Net.Api.Extensions
-{
-    /// <summary>
-    /// </summary>
-    public static class LoggerExtensions
-    {
-        /// <summary>
-        ///     Uses the console log.
-        /// </summary>
-        /// <param name="redmineManager">The redmine manager.</param>
-        public static void UseConsoleLog(this RedmineManager redmineManager)
-        {
-            Logger.UseLogger(new ConsoleLogger());
-        }
-
-        /// <summary>
-        ///     Uses the color console log.
-        /// </summary>
-        /// <param name="redmineManager">The redmine manager.</param>
-        public static void UseColorConsoleLog(this RedmineManager redmineManager)
-        {
-            Logger.UseLogger(new ColorConsoleLogger());
-        }
-
-        /// <summary>
-        ///     Uses the trace log.
-        /// </summary>
-        /// <param name="redmineManager">The redmine manager.</param>
-        public static void UseTraceLog(this RedmineManager redmineManager)
-        {
-            Logger.UseLogger(new TraceLogger());
-        }
-    }
-}
+//using Redmine.Net.Api.Logging;
+//
+//namespace Redmine.Net.Api.Extensions
+//{
+//    /// <summary>
+//    /// </summary>
+//    public static class LoggerExtensions
+//    {
+//        /// <summary>
+//        ///     Uses the console log.
+//        /// </summary>
+//        /// <param name="redmineManager">The redmine manager.</param>
+//        public static void UseConsoleLog(this RedmineManager redmineManager)
+//        {
+//            Logger.UseLogger(new ConsoleLogger());
+//        }
+//
+//        /// <summary>
+//        ///     Uses the color console log.
+//        /// </summary>
+//        /// <param name="redmineManager">The redmine manager.</param>
+//        public static void UseColorConsoleLog(this RedmineManager redmineManager)
+//        {
+//            Logger.UseLogger(new ColorConsoleLogger());
+//        }
+//
+//        /// <summary>
+//        ///     Uses the trace log.
+//        /// </summary>
+//        /// <param name="redmineManager">The redmine manager.</param>
+//        public static void UseTraceLog(this RedmineManager redmineManager)
+//        {
+//            Logger.UseLogger(new TraceLogger());
+//        }
+//    }
+//}

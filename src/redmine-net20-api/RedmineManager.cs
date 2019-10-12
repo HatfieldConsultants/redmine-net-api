@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 using Redmine.Net.Api.Exceptions;
 using Redmine.Net.Api.Extensions;
 using Redmine.Net.Api.Internals;
-using Redmine.Net.Api.Logging;
+
 using Redmine.Net.Api.Types;
 using Group = Redmine.Net.Api.Types.Group;
 using Version = Redmine.Net.Api.Types.Version;
@@ -809,7 +809,7 @@ namespace Redmine.Net.Api
                 return true;
             }
 
-            Logger.Current.Error("X509Certificate [{0}] Policy Error: '{1}'", cert.Subject, error);
+            //  Logger.Current.Error("X509Certificate [{0}] Policy Error: '{1}'", cert.Subject, error);
 
             return false;
         }

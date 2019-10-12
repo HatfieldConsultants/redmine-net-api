@@ -14,17 +14,32 @@
    limitations under the License.
 */
 
-namespace Redmine.Net.Api.Logging
+namespace Redmine.Api.Logger
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface ILogger
+    public enum LoggingEventType
     {
         /// <summary>
-        /// Logs the specified entry.
+        /// The debug
         /// </summary>
-        /// <param name="entry">The entry.</param>
-        void Log(LogEntry entry);
-    }
+        Debug,
+        /// <summary>
+        /// The information
+        /// </summary>
+        Information,
+        /// <summary>
+        /// The warning
+        /// </summary>
+        Warning,
+        /// <summary>
+        /// The error
+        /// </summary>
+        Error,
+        /// <summary>
+        /// The fatal
+        /// </summary>
+        Fatal
+    };
 }

@@ -14,14 +14,16 @@
    limitations under the License.
 */
 
-namespace Redmine.Net.Api.Logging
+using Redmine.Api.Logger.Console;
+
+namespace Redmine.Api.Logger
 {
     /// <summary>
     /// 
     /// </summary>
     public static class Logger
     {
-        private static readonly object locker = new object();
+        private static readonly object Locker = new object();
         private static ILogger logger;
 
         /// <summary>
@@ -32,8 +34,8 @@ namespace Redmine.Net.Api.Logging
         /// </value>
         public static ILogger Current
         {
-            get { return logger ?? (logger = new ConsoleLogger()); }
-            private set { logger = value; }
+            get => logger ?? (logger = new ConsoleLogger());
+            private set => logger = value;
         }
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace Redmine.Net.Api.Logging
         /// <param name="logger">The logger.</param>
         public static void UseLogger(ILogger logger)
         {
-            lock (locker)
+            lock (Locker)
             {
                 Current = logger;
             }

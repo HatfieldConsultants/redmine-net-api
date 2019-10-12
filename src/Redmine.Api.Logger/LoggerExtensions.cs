@@ -17,7 +17,7 @@
 using System;
 using System.Globalization;
 
-namespace Redmine.Net.Api.Logging
+namespace Redmine.Api.Logger
 {
     /// <summary>
     /// 

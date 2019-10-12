@@ -16,12 +16,12 @@
 
 using System;
 
-namespace Redmine.Net.Api.Logging
+namespace Redmine.Api.Logger.Console
 {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="Redmine.Net.Api.Logging.ILogger" />
+    /// <seealso cref="ILogger" />
     public sealed class ColorConsoleLogger : ILogger
     {
         private static readonly object locker = new object();
@@ -38,19 +38,19 @@ namespace Redmine.Net.Api.Logging
                 switch (entry.Severity)
                 {
                     case LoggingEventType.Debug:
-                        Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
+                        System.Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
                         break;
                     case LoggingEventType.Information:
-                        Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
+                        System.Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
                         break;
                     case LoggingEventType.Warning:
-                        Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
+                        System.Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
                         break;
                     case LoggingEventType.Error:
-                        Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
+                        System.Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
                         break;
                     case LoggingEventType.Fatal:
-                        Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
+                        System.Console.WriteLine(entry.Message, colors.Background, colors.Foreground);
                         break;
                 }
             }

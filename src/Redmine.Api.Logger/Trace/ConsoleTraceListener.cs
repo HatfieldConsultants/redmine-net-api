@@ -14,15 +14,14 @@
    limitations under the License.
 */
 
-using System;
 using System.Diagnostics;
 
-namespace Redmine.Net.Api.Logging
+namespace Redmine.Api.Logger.Trace
 {
     /// <summary>
     /// 
     /// </summary>
-	public sealed class RedmineConsoleTraceListener : TraceListener
+	public sealed class ConsoleTraceListener : TraceListener
 	{
 		#region implemented abstract members of TraceListener
 
@@ -32,7 +31,7 @@ namespace Redmine.Net.Api.Logging
         /// <param name="message">A message to write.</param>
 		public override void Write (string message)
 		{
-			Console.Write(message);
+			System.Console.Write(message);
 		}
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace Redmine.Net.Api.Logging
         /// <param name="message">A message to write.</param>
 		public override void WriteLine (string message)
 		{
-			Console.WriteLine(message);
+			System.Console.WriteLine(message);
 		}
 
 		#endregion
