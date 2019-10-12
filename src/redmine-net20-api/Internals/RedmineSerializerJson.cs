@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+#if !NET20
 using System;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
@@ -241,3 +242,4 @@ namespace Redmine.Net.Api.Internals
         }
     }
 }
+#endif
