@@ -15,7 +15,7 @@ namespace redmine.net.api.Tests.Infrastructure
     public class CaseOrderer : ITestCaseOrderer
     {
         public const string TYPE_NAME = "redmine.net.api.Tests.Infrastructure.CaseOrderer";
-        public const string ASSEMBY_NAME = "redmine-net-api.Tests";
+        public const string ASSEMBLY_NAME = "Redmine.Api.Tests";
 
         public static readonly ConcurrentDictionary<string, ConcurrentQueue<string>> QueuedTests = new ConcurrentDictionary<string, ConcurrentQueue<string>>();
 
