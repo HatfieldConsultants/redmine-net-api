@@ -18,11 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Types;
-using Version = Redmine.Net.Api.Types.Version;
+using Redmine.Api.Extensions;
+using Redmine.Api.Types;
+using Version = Redmine.Api.Types.Version;
 
-namespace Redmine.Net.Api.JSonConverters
+namespace Redmine.Api.JSonConverters
 {
     internal class VersionConverter : JavaScriptConverter
     {

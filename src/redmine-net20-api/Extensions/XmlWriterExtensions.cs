@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
-using Redmine.Net.Api.Internals;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Internals;
+using Redmine.Api.Types;
 
-namespace Redmine.Net.Api.Extensions
+namespace Redmine.Api.Extensions
 {
     /// <summary>
     /// 

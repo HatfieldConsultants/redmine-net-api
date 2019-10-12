@@ -22,11 +22,11 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Internals;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Extensions;
+using Redmine.Api.Internals;
+using Redmine.Api.Types;
 
-namespace Redmine.Net.Api.Async
+namespace Redmine.Api.Async
 {
     /// <summary>
     /// </summary>

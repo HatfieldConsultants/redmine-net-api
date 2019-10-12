@@ -23,15 +23,15 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using Redmine.Net.Api.Exceptions;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Internals;
+using Redmine.Api.Exceptions;
+using Redmine.Api.Extensions;
+using Redmine.Api.Internals;
 
-using Redmine.Net.Api.Types;
-using Group = Redmine.Net.Api.Types.Group;
-using Version = Redmine.Net.Api.Types.Version;
+using Redmine.Api.Types;
+using Group = Redmine.Api.Types.Group;
+using Version = Redmine.Api.Types.Version;
 
-namespace Redmine.Net.Api
+namespace Redmine.Api
 {
     /// <summary>
     ///     The main class to access Redmine API.
@@ -88,7 +88,7 @@ namespace Redmine.Net.Api
         /// <param name="verifyServerCert">if set to <c>true</c> [verify server cert].</param>
         /// <param name="proxy">The proxy.</param>
         /// <param name="securityProtocolType">Use this parameter to specify a SecurityProtcolType. Note: it is recommended to leave this parameter at its default value as this setting also affects the calling application process.</param>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">
         ///     Host is not defined!
         ///     or
         ///     The host is not valid!

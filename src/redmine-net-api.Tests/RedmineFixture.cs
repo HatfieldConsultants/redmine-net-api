@@ -1,5 +1,6 @@
-﻿using System.Diagnostics;
-using Redmine.Net.Api;
+﻿using Redmine.Api;
+using System.Diagnostics;
+
 
 namespace redmine.net.api.Tests
 {
@@ -13,13 +14,13 @@ namespace redmine.net.api.Tests
 			SetMimeTypeJSON();
 		}
 
-		[Conditional("JSON")]
+        [Conditional("JSON")]
 		private void SetMimeTypeJSON()
 		{
-			RedmineManager = new RedmineManager(Helper.Uri, Helper.ApiKey, MimeFormat.Json);
+		//	RedmineManager = new RedmineManager(Helper.Uri, Helper.ApiKey, MimeFormat.Json);
 		}
 
-		[Conditional("XML")]
+        [Conditional("XML")]
 		private void SetMimeTypeXML()
 		{
 			RedmineManager = new RedmineManager(Helper.Uri, Helper.ApiKey);

@@ -18,12 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
-using Redmine.Net.Api.Exceptions;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Types;
-using Version = Redmine.Net.Api.Types.Version;
+using Redmine.Api.Exceptions;
+using Redmine.Api.Extensions;
+using Redmine.Api.Types;
+using Version = Redmine.Api.Types.Version;
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     /// <summary>
     /// </summary>
@@ -95,7 +95,7 @@ namespace Redmine.Net.Api.Internals
         /// <param name="ownerId">The owner identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">
         ///     The owner id(project id) is mandatory!
         ///     or
         ///     The owner id(issue id) is mandatory!
@@ -177,7 +177,7 @@ namespace Redmine.Net.Api.Internals
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
         /// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">
         /// The project id is mandatory! \nCheck if you have included the parameter project_id to parameters.
         /// or
         /// The issue id is mandatory! \nCheck if you have included the parameter issue_id to parameters

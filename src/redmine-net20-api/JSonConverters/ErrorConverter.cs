@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
-using Redmine.Net.Api.Types;
-using Redmine.Net.Api.Extensions;
+using Redmine.Api.Types;
+using Redmine.Api.Extensions;
 
-namespace Redmine.Net.Api.JSonConverters
+namespace Redmine.Api.JSonConverters
 {
     internal class ErrorConverter : JavaScriptConverter
     {

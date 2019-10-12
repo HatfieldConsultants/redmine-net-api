@@ -16,8 +16,8 @@
 
 using System;
 using redmine.net.api.Tests.Infrastructure;
-using Redmine.Net.Api.Exceptions;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Exceptions;
+using Redmine.Api.Types;
 using Xunit;
 
 namespace redmine.net.api.Tests.Tests.Sync

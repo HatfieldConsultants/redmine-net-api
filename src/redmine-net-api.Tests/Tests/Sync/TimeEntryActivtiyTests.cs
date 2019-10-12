@@ -15,7 +15,7 @@
 */
 
 using redmine.net.api.Tests.Infrastructure;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Types;
 using Xunit;
 
 namespace redmine.net.api.Tests.Tests.Sync

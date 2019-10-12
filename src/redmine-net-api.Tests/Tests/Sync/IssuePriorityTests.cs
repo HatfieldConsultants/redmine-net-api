@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-using Redmine.Net.Api.Types;
+using Redmine.Api.Types;
 using Xunit;
 
 namespace redmine.net.api.Tests.Tests.Sync

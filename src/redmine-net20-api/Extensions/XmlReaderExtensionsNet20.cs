@@ -22,7 +22,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Redmine.Net.Api.Extensions
+namespace Redmine.Api.Extensions
 {
     /// <summary>
     /// 

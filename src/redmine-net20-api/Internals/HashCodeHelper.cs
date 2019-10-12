@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     /// <summary>
     /// 

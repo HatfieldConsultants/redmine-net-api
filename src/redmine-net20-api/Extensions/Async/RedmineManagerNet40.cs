@@ -18,9 +18,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Types;
 
-namespace Redmine.Net.Api.Async
+namespace Redmine.Api.Async
 {
     /// <summary>
     /// 

@@ -17,9 +17,9 @@
 using System;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Redmine.Net.Api.Internals;
+using Redmine.Api.Internals;
 
-namespace Redmine.Net.Api.Types
+namespace Redmine.Api.Types
 {
     /// <summary>
     /// Support for adding attachments through the REST API is added in Redmine 1.4.0.

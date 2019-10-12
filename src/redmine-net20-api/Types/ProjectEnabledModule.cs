@@ -16,7 +16,7 @@ limitations under the License.
 
 using System.Xml.Serialization;
 
-namespace Redmine.Net.Api.Types
+namespace Redmine.Api.Types
 {
     /// <summary>
     /// the module name: boards, calendar, documents, files, gantt, issue_tracking, news, repository, time_tracking, wiki.

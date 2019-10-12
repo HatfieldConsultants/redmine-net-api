@@ -1,7 +1,7 @@
 ﻿using System;
 using redmine.net.api.Tests.Infrastructure;
-using Redmine.Net.Api;
-using Redmine.Net.Api.Exceptions;
+using Redmine.Api;
+using Redmine.Api.Exceptions;
 using Xunit;
 
 namespace redmine.net.api.Tests.Tests

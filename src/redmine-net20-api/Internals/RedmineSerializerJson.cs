@@ -20,11 +20,11 @@ using System.Collections.Generic;
 using System.Web.Script.Serialization;
 using System.Collections;
 using System.Linq;
-using Redmine.Net.Api.JSonConverters;
-using Redmine.Net.Api.Types;
-using Version = Redmine.Net.Api.Types.Version;
+using Redmine.Api.JSonConverters;
+using Redmine.Api.Types;
+using Version = Redmine.Api.Types.Version;
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     /// <summary>
     /// 

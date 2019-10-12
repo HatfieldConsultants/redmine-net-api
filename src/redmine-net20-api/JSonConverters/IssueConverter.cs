@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Script.Serialization;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Extensions;
+using Redmine.Api.Types;
 
 
-namespace Redmine.Net.Api.JSonConverters
+namespace Redmine.Api.JSonConverters
 {
     internal class IssueConverter : JavaScriptConverter
     {

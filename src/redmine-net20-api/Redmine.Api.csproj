@@ -2,12 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Build">
-    <TargetFramework>net20</TargetFramework>
+    <TargetFramework>net45</TargetFramework>
     <TargetFrameworks>net20;net40;net45;net451;net452;net46;net461;net462;net47;net471;net472;net48</TargetFrameworks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>Redmine.Net.Api</RootNamespace>
-    <AssemblyName>Redmine.Net.Api</AssemblyName>
+    <RootNamespace>Redmine.Api</RootNamespace>
+    <AssemblyName>Redmine.Api</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <Platform>x64 or x86</Platform>
@@ -226,6 +226,12 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Logging\**" />
+    <EmbeddedResource Remove="Logging\**" />
+    <None Remove="Logging\**" />
+  </ItemGroup>
+
 <!--  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard16' " Label=".NET Standard 1.6 Package References">-->
 <!--    <PackageReference Include="System.Collections" Version="4.3.0" />-->
 <!--    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />-->
@@ -244,10 +250,6 @@
 <!--    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />-->
 <!--  -->
 <!--  </ItemGroup>-->
-
-  <ItemGroup>
-    <Folder Include="Logging" />
-  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'" Label=".NET Standard 2.0 Package References">
     <PackageReference Include="System.Collections" Version="4.3.0" />

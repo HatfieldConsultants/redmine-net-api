@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     /// <summary>
     /// 

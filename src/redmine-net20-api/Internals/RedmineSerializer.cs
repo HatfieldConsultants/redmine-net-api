@@ -20,11 +20,11 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Types;
-using Redmine.Net.Api.Exceptions;
+using Redmine.Api.Extensions;
+using Redmine.Api.Types;
+using Redmine.Api.Exceptions;
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     internal static partial class RedmineSerializer
     {

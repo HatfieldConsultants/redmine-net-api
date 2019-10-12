@@ -20,7 +20,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Redmine.Net.Api.Types
+namespace Redmine.Api.Types
 {
     /// <summary>
     /// 

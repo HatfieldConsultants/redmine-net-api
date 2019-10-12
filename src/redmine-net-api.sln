@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0DFF4758-5C1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F3F4278D-6271-4F77-BA88-41555D53CBD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "redmine-net20-api", "redmine-net20-api\redmine-net20-api.csproj", "{0E6B9B72-445D-4E71-8D29-48C4A009AB03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redmine.Api", "redmine-net20-api\Redmine.Api.csproj", "{0E6B9B72-445D-4E71-8D29-48C4A009AB03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "redmine-net-api.Tests", "redmine-net-api.Tests\redmine-net-api.Tests.csproj", "{900EF0B3-0233-45DA-811F-4C59483E8452}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redmine.Api.Tests", "redmine-net-api.Tests\Redmine.Api.Tests.csproj", "{900EF0B3-0233-45DA-811F-4C59483E8452}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redmine.Api.Logger", "Redmine.Api.Logger\Redmine.Api.Logger.csproj", "{43324CA4-F413-4757-9DCF-D532E7A1BF7A}"
 EndProject

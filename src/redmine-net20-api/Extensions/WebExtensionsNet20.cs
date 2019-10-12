@@ -19,12 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Redmine.Net.Api.Exceptions;
-using Redmine.Net.Api.Internals;
-//using Redmine.Net.Api.Logging;
-using Redmine.Net.Api.Types;
+using Redmine.Api.Exceptions;
+using Redmine.Api.Internals;
+//using Redmine.Api.Logging;
+using Redmine.Api.Types;
 
-namespace Redmine.Net.Api.Extensions
+namespace Redmine.Api.Extensions
 {
     /// <summary>
     /// </summary>
@@ -36,16 +36,16 @@ namespace Redmine.Net.Api.Extensions
         /// <param name="exception">The exception.</param>
         /// <param name="method">The method.</param>
         /// <param name="mimeFormat">The MIME format.</param>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineTimeoutException">Timeout!</exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.NameResolutionFailureException">Bad domain name!</exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.NotFoundException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.InternalServerErrorException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.UnauthorizedException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.ForbiddenException"></exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.ConflictException">The page that you are trying to update is staled!</exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">
+        /// <exception cref="Redmine.Api.Exceptions.RedmineTimeoutException">Timeout!</exception>
+        /// <exception cref="Redmine.Api.Exceptions.NameResolutionFailureException">Bad domain name!</exception>
+        /// <exception cref="Redmine.Api.Exceptions.NotFoundException"></exception>
+        /// <exception cref="Redmine.Api.Exceptions.InternalServerErrorException"></exception>
+        /// <exception cref="Redmine.Api.Exceptions.UnauthorizedException"></exception>
+        /// <exception cref="Redmine.Api.Exceptions.ForbiddenException"></exception>
+        /// <exception cref="Redmine.Api.Exceptions.ConflictException">The page that you are trying to update is staled!</exception>
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">
         /// </exception>
-        /// <exception cref="Redmine.Net.Api.Exceptions.NotAcceptableException"></exception>
+        /// <exception cref="Redmine.Api.Exceptions.NotAcceptableException"></exception>
         public static void HandleWebException(this WebException exception, string method, MimeFormat mimeFormat)
         {
             if (exception == null) return;

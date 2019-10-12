@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Internals;
+using Redmine.Api.Extensions;
+using Redmine.Api.Internals;
 
-namespace Redmine.Net.Api.Types
+namespace Redmine.Api.Types
 {
     /// <summary>
     /// Availability 1.1

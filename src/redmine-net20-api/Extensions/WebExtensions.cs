@@ -19,11 +19,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using Redmine.Net.Api.Internals;
-using Redmine.Net.Api.Types;
-using Redmine.Net.Api.Exceptions;
+using Redmine.Api.Internals;
+using Redmine.Api.Types;
+using Redmine.Api.Exceptions;
 
-namespace Redmine.Net.Api.Extensions
+namespace Redmine.Api.Extensions
 {
     /// <summary>
     /// 

@@ -19,11 +19,11 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Redmine.Net.Api.Extensions;
-using Redmine.Net.Api.Types;
-using Redmine.Net.Api.Exceptions;
+using Redmine.Api.Extensions;
+using Redmine.Api.Types;
+using Redmine.Api.Exceptions;
 
-namespace Redmine.Net.Api.Internals
+namespace Redmine.Api.Internals
 {
     /// <summary>
     /// 
@@ -114,7 +114,7 @@ namespace Redmine.Net.Api.Internals
         /// <param name="response">The response.</param>
         /// <param name="mimeFormat">The MIME format.</param>
         /// <returns></returns>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">could not deserialize:  + response</exception>
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">could not deserialize:  + response</exception>
         public static T Deserialize<T>(string response, MimeFormat mimeFormat) where T : class, new()
         {
             if (string.IsNullOrEmpty(response)) throw new RedmineException("could not deserialize: " + response);
@@ -129,7 +129,7 @@ namespace Redmine.Net.Api.Internals
         /// <param name="response">The response.</param>
         /// <param name="mimeFormat">The MIME format.</param>
         /// <returns></returns>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">web response is null!</exception>
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">web response is null!</exception>
         public static PaginatedObjects<T> DeserializeList<T>(string response, MimeFormat mimeFormat) where T : class, new()
         {
             if (string.IsNullOrEmpty(response)) throw new RedmineException("web response is null!");
@@ -143,7 +143,7 @@ namespace Redmine.Net.Api.Internals
         /// <typeparam name="T"></typeparam>
         /// <param name="response">The response.</param>
         /// <returns></returns>
-        /// <exception cref="Redmine.Net.Api.Exceptions.RedmineException">could not deserialize:  + response</exception>
+        /// <exception cref="Redmine.Api.Exceptions.RedmineException">could not deserialize:  + response</exception>
         private static PaginatedObjects<T> XmlDeserializeList<T>(string response) where T : class, new()
         {
             if (string.IsNullOrEmpty(response)) throw new RedmineException("could not deserialize: " + response);

@@ -17,12 +17,12 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Redmine.Net.Api.Exceptions
+namespace Redmine.Api.Exceptions
 {
     /// <summary>
     /// Thrown in case the objects requested for could not be found.
     /// </summary>
-    /// <seealso cref="Redmine.Net.Api.Exceptions.RedmineException" />
+    /// <seealso cref="Redmine.Api.Exceptions.RedmineException" />
     public sealed class NotFoundException : RedmineException
     {
         /// <summary>
