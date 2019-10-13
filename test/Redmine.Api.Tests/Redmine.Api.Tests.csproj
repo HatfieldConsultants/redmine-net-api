@@ -14,6 +14,10 @@
 
   <ItemGroup Label="Package References">
     <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     
   </ItemGroup>
 
@@ -32,7 +36,7 @@
   </ItemGroup>
 
 
-  <ItemGroup>
+  <ItemGroup Label="Project References">
     <ProjectReference Include="..\..\src\Redmine.Api\Redmine.Api.csproj" />
     
   </ItemGroup>
