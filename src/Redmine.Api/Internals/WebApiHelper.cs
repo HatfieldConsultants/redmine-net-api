@@ -52,7 +52,7 @@ namespace Redmine.Api.Internals
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
             }
         }
@@ -79,12 +79,12 @@ namespace Redmine.Api.Internals
                         actionType == HttpVerbs.PATCH)
                     {
                         var response = wc.UploadString(address, actionType, data);
-                        return RedmineSerializer.Deserialize<T>(response, redmineManager.MimeFormat);
+                        return redmineManager.Serializer.Deserialize<T>(response);
                     }
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
                 return default(T);
             }
@@ -109,11 +109,13 @@ namespace Redmine.Api.Internals
                 {
                     var response = wc.DownloadString(address);
                     if (!string.IsNullOrEmpty(response))
-                        return RedmineSerializer.Deserialize<T>(response, redmineManager.MimeFormat);
+                    {
+                        return redmineManager.Serializer.Deserialize<T>(response);
+                    }
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
                 return default(T);
             }
@@ -128,7 +130,7 @@ namespace Redmine.Api.Internals
         /// <param name="methodName">Name of the method.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public static PaginatedObjects<T> ExecuteDownloadList<T>(RedmineManager redmineManager, string address,
+        public static PagedResults<T> ExecuteDownloadList<T>(RedmineManager redmineManager, string address,
             string methodName,
             NameValueCollection parameters = null) where T : class, new()
         {
@@ -137,11 +139,11 @@ namespace Redmine.Api.Internals
                 try
                 {
                     var response = wc.DownloadString(address);
-                    return RedmineSerializer.DeserializeList<T>(response, redmineManager.MimeFormat);
+                    return redmineManager.Serializer.DeserializeToPagedResults<T>(response);
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
                 return null;
             }
@@ -164,7 +166,7 @@ namespace Redmine.Api.Internals
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
                 return null;
             }
@@ -186,11 +188,11 @@ namespace Redmine.Api.Internals
                 {
                     var response = wc.UploadData(address, data);
                     var responseString = Encoding.ASCII.GetString(response);
-                    return RedmineSerializer.Deserialize<Upload>(responseString, redmineManager.MimeFormat);
+                    return redmineManager.Serializer.Deserialize<Upload>(responseString);
                 }
                 catch (WebException webException)
                 {
-                    webException.HandleWebException(methodName, redmineManager.MimeFormat);
+                    webException.HandleWebException(redmineManager.Serializer);
                 }
                 return null;
             }

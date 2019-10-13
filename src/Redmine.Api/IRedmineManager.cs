@@ -19,8 +19,9 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using Redmine.Api.Types;
 
-namespace Redmine.Api.Types
+namespace Redmine.Api
 {
     /// <summary>
     /// 
@@ -144,7 +145,7 @@ namespace Redmine.Api.Types
         /// <param name="parameters"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        PaginatedObjects<T> GetPaginatedObjects<T>(NameValueCollection parameters) where T : class, new();
+        PagedResults<T> GetPaginatedObjects<T>(NameValueCollection parameters) where T : class, new();
         
         /// <summary>
         /// 

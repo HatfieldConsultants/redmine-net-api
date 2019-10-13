@@ -191,7 +191,7 @@ namespace Redmine.Api.Internals
 
             if (type == typeof(Version) || type == typeof(IssueCategory) || type == typeof(ProjectMembership))
             {
-                var projectId = parameters.GetParameterValue(RedmineKeys.PROJECT_ID);
+                var projectId = parameters.GetValue(RedmineKeys.PROJECT_ID);
                 if (string.IsNullOrEmpty(projectId))
                     throw new RedmineException("The project id is mandatory! \nCheck if you have included the parameter project_id to parameters.");
 
@@ -200,7 +200,7 @@ namespace Redmine.Api.Internals
             }
             if (type == typeof(IssueRelation))
             {
-                var issueId = parameters.GetParameterValue(RedmineKeys.ISSUE_ID);
+                var issueId = parameters.GetValue(RedmineKeys.ISSUE_ID);
                 if (string.IsNullOrEmpty(issueId))
                     throw new RedmineException("The issue id is mandatory! \nCheck if you have included the parameter issue_id to parameters");
 
@@ -210,7 +210,7 @@ namespace Redmine.Api.Internals
 
             if (type == typeof(File))
             {
-                var projectId = parameters.GetParameterValue(RedmineKeys.PROJECT_ID);
+                var projectId = parameters.GetValue(RedmineKeys.PROJECT_ID);
                 if (string.IsNullOrEmpty(projectId))
                 {
                     throw new RedmineException("The project id is mandatory! \nCheck if you have included the parameter project_id to parameters.");

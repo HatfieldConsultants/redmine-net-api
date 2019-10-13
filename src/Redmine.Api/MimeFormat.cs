@@ -25,11 +25,9 @@ namespace Redmine.Api
         /// XML
         /// </summary>
         Xml,
-#if !NET20
         /// <summary>
         /// JSON
         /// </summary>
         Json
-#endif
     }
 }
