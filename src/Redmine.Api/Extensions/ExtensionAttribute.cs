@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+// ReSharper disable CheckNamespace
 #if NET20
 namespace System.Runtime.CompilerServices
 {
