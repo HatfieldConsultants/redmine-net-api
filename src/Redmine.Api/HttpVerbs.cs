@@ -23,6 +23,10 @@ namespace Redmine.Api
     public static class HttpVerbs
     {
         /// <summary>
+        /// Represents an HTTP GET protocol method that is used to get an existing entity identified by a URI.
+        /// </summary>
+        public const string GET = "GET"; 
+        /// <summary>
         /// Represents an HTTP PUT protocol method that is used to replace an entity identified by a URI.
         /// </summary>
         public const string PUT = "PUT";
@@ -31,11 +35,11 @@ namespace Redmine.Api
         /// </summary>
         public const string POST = "POST";
         /// <summary>
-        /// Represents an HTTP PATCH protocol method that is used to patch an existing entity identified  by a URI.
+        /// Represents an HTTP PATCH protocol method that is used to patch an existing entity identified by a URI.
         /// </summary>
         public const string PATCH = "PATCH";
         /// <summary>
-        /// Represents an HTTP DELETE protocol method that is used to delete an existing entity identified  by a URI.
+        /// Represents an HTTP DELETE protocol method that is used to delete an existing entity identified by a URI.
         /// </summary>
         public const string DELETE = "DELETE";
     }
