@@ -1,5 +1,5 @@
 /*
-   Copyright 2016 - 2017 Adrian Popescu.
+   Copyright 2011 - 2019 Adrian Popescu.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -28,6 +28,10 @@ namespace Redmine.Api
         /// 
         /// </summary>
         public const string ACTIVITY_ID = "activity_id";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ADMIN = "admin";
         /// <summary>
         /// 
         /// </summary>
@@ -71,11 +75,11 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
-        public const string CHANGESET = "changeset";
+        public const string CHANGE_SET = "changeset";
         /// <summary>
         /// 
         /// </summary>
-        public const string CHANGESETS = "changesets";
+        public const string CHANGE_SETS = "changesets";
         /// <summary>
         /// 
         /// </summary>
@@ -104,6 +108,17 @@ namespace Redmine.Api
         /// 
         /// </summary>
         public const string CREATED_ON = "created_on";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string CURRENT = "current";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string CURRENT_USER = "current_user";
+
         /// <summary>
         /// 
         /// </summary>
@@ -187,15 +202,20 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
-        public const string FILENAME = "filename";
+        public const string FILE_NAME = "filename";
         /// <summary>
         /// 
         /// </summary>
-        public const string FILESIZE = "filesize";
+        public const string FILE_SIZE = "filesize";
+
         /// <summary>
         /// 
         /// </summary>
-        public const string FIRSTNAME = "firstname";
+        public const string FILES = "files";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string FIRST_NAME = "firstname";
         /// <summary>
         /// 
         /// </summary>
@@ -260,6 +280,11 @@ namespace Redmine.Api
         /// 
         /// </summary>
         public const string ISSUE_CATEGORY = "issue_category";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ISSUE_CUSTOM_FIELD_IDS = "issue_custom_field_ids";
         /// <summary>
         /// 
         /// </summary>
@@ -319,7 +344,11 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
-        public const string LASTNAME = "lastname";
+        public const string LABEL = "label";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string LAST_NAME = "lastname";
         /// <summary>
         /// 
         /// </summary>
@@ -363,7 +392,7 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
-        public const string MUST_CHANGE_PASSWD = "must_change_passwd";
+        public const string MUST_CHANGE_PASSWORD = "must_change_passwd";
         /// <summary>
         /// 
         /// </summary>
@@ -453,6 +482,10 @@ namespace Redmine.Api
         /// </summary>
         public const string QUERY = "query";
         /// <summary>
+        ///
+        /// </summary>
+        public const string REASSIGN_TO_ID = "reassign_to_id";
+        /// <summary>
         /// 
         /// </summary>
         public const string REGEXP = "regexp";
@@ -527,7 +560,7 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
-        public const string SUBPROJECT_ID = "subproject_id";
+        public const string SUB_PROJECT_ID = "subproject_id";
         /// <summary>
         /// 
         /// </summary>
@@ -555,6 +588,10 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
+        public const string THUMBNAIL_URL = "thumbnail_url";
+        /// <summary>
+        /// 
+        /// </summary>
         public const string TOKEN = "token";
         /// <summary>
         /// 
@@ -564,12 +601,10 @@ namespace Redmine.Api
         /// 
         /// </summary>
         public const string TOTAL_ESTIMATED_HOURS = "total_estimated_hours";
-
         /// <summary>
         /// 
         /// </summary>
         public const string TOTAL_SPENT_HOURS = "total_spent_hours";
-
         /// <summary>
         /// 
         /// </summary>
@@ -618,18 +653,18 @@ namespace Redmine.Api
         /// 
         /// </summary>
         public const string VALUE = "value";
-		/// <summary>
-		/// 
-		/// </summary>
-		public const string LABEL = "label";
-		/// <summary>
-		/// 
-		/// </summary>
-		public const string VERSION = "version";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string VERSION = "version";
         /// <summary>
         /// 
         /// </summary>
         public const string VERSION_ID = "version_id";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string VERSIONS = "versions";
         /// <summary>
         /// 
         /// </summary>
@@ -649,14 +684,16 @@ namespace Redmine.Api
         /// <summary>
         /// 
         /// </summary>
+        public const string WIKI = "wiki";
+        /// <summary>
+        /// 
+        /// </summary>
         public const string WIKI_PAGE = "wiki_page";
         /// <summary>
         /// 
         /// </summary>
         public const string WIKI_PAGES = "wiki_pages";
-	    /// <summary>
-	    ///
-	    /// </summary>
-	    public const string REASSIGN_TO_ID = "reassign_to_id";
+
+        
     }
 }
