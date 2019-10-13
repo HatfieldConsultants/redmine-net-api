@@ -16,8 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Redmine.Api.Extensions;
 using Redmine.Api.Internals;
 
@@ -26,31 +28,42 @@ namespace Redmine.Api.Types
     /// <summary>
     /// Availability 2.1
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.GROUP)]
-    public class Group : IdentifiableName, IEquatable<Group>
+    public sealed class Group : IdentifiableName, IEquatable<Group>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public Group() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public Group(string name)
+        {
+            Name = name;
+        }
+
+        #region Properties
         /// <summary>
         /// Represents the group's users.
         /// </summary>
-        [XmlArray(RedmineKeys.USERS)]
-        [XmlArrayItem(RedmineKeys.USER)]
-        public List<GroupUser> Users { get; set; }
+        public IList<GroupUser> Users { get; internal set; }
 
         /// <summary>
         /// Gets or sets the custom fields.
         /// </summary>
         /// <value>The custom fields.</value>
-        [XmlArray(RedmineKeys.CUSTOM_FIELDS)]
-        [XmlArrayItem(RedmineKeys.CUSTOM_FIELD)]
-        public IList<IssueCustomField> CustomFields { get; set; }
+        public IList<IssueCustomField> CustomFields { get; internal set; }
 
         /// <summary>
         /// Gets or sets the custom fields.
         /// </summary>
         /// <value>The custom fields.</value>
-        [XmlArray(RedmineKeys.MEMBERSHIPS)]
-        [XmlArrayItem(RedmineKeys.MEMBERSHIP)]
-        public IList<Membership> Memberships { get; set; }
+        public IList<Membership> Memberships { get; internal set; }
+        #endregion
 
         #region Implementation of IXmlSerializable
 
@@ -72,15 +85,10 @@ namespace Redmine.Api.Types
                 switch (reader.Name)
                 {
                     case RedmineKeys.ID: Id = reader.ReadElementContentAsInt(); break;
-
-                    case RedmineKeys.NAME: Name = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.USERS: Users = reader.ReadElementContentAsCollection<GroupUser>(); break;
-
                     case RedmineKeys.CUSTOM_FIELDS: CustomFields = reader.ReadElementContentAsCollection<IssueCustomField>(); break;
-
                     case RedmineKeys.MEMBERSHIPS: Memberships = reader.ReadElementContentAsCollection<Membership>(); break;
-
+                    case RedmineKeys.NAME: Name = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.USERS: Users = reader.ReadElementContentAsCollection<GroupUser>(); break;
                     default: reader.Read(); break;
                 }
             }
@@ -93,9 +101,55 @@ namespace Redmine.Api.Types
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteElementString(RedmineKeys.NAME, Name);
-            writer.WriteArrayIds(Users, RedmineKeys.USER_IDS, typeof(int), GetGroupUserId);
+            //TODO: change to repeatable elements
+            writer.WriteArrayIds(RedmineKeys.USER_IDS, Users, typeof(int), GetGroupUserId);
         }
 
+        #endregion
+
+        #region Implementation of IJsonSerialization
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public override void ReadJson(JsonReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
+
+                if (reader.TokenType != JsonToken.PropertyName)
+                {
+                    continue;
+                }
+
+                switch (reader.Value)
+                {
+                    case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
+                    case RedmineKeys.CUSTOM_FIELDS: CustomFields = reader.ReadAsCollection<IssueCustomField>(); break;
+                    case RedmineKeys.MEMBERSHIPS: Memberships = reader.ReadAsCollection<Membership>(); break;
+                    case RedmineKeys.NAME: Name = reader.ReadAsString(); break;
+                    case RedmineKeys.USERS: Users = reader.ReadAsCollection<GroupUser>(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        public override void WriteJson(JsonWriter writer)
+        {
+            using (new JsonObject(writer, RedmineKeys.GROUP))
+            {
+                writer.WriteProperty(RedmineKeys.NAME, Name);
+                writer.WriteRepeatableElement(RedmineKeys.USER_IDS, (IEnumerable<IValue>)Users);
+            }
+        }
         #endregion
 
         #region Implementation of IEquatable<Group>
@@ -154,10 +208,8 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[Group: Id={0}, Name={1}, Users={2}, CustomFields={3}, Memberships={4}]", Id, Name, Users, CustomFields, Memberships);
-        }
+        private string DebuggerDisplay => $"[{nameof(Group)}: {ToString()}, Users={Users.Dump()}, CustomFields={CustomFields.Dump()}, Memberships={Memberships.Dump()}]";
+
 
         /// <summary>
         /// 

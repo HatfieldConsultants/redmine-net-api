@@ -16,9 +16,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Redmine.Api.Extensions;
 using Redmine.Api.Internals;
 
@@ -27,61 +29,54 @@ namespace Redmine.Api.Types
     /// <summary>
     /// Availability 2.2
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.WIKI_PAGE)]
-    public class WikiPage : Identifiable<WikiPage>, IXmlSerializable, IEquatable<WikiPage>
+    public sealed class WikiPage : Identifiable<WikiPage>
     {
+        #region Properties
         /// <summary>
-        /// 
+        /// Gets the title.
         /// </summary>
-        [XmlElement(RedmineKeys.TITLE)]
-        public string Title { get; set; }
+        public string Title { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the text.
         /// </summary>
-        [XmlElement(RedmineKeys.TEXT)]
         public string Text { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the comments
         /// </summary>
-        [XmlElement(RedmineKeys.COMMENTS)]
         public string Comments { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the version
         /// </summary>
-        [XmlElement(RedmineKeys.VERSION)]
         public int Version { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the author.
         /// </summary>
-        [XmlElement(RedmineKeys.AUTHOR)]
-        public IdentifiableName Author { get; set; }
+        public IdentifiableName Author { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the created on.
+        /// Gets the created on.
         /// </summary>
         /// <value>The created on.</value>
-        [XmlElement(RedmineKeys.CREATED_ON)]
-        public DateTime? CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; internal set; }
 
         /// <summary>
         /// Gets or sets the updated on.
         /// </summary>
         /// <value>The updated on.</value>
-        [XmlElement(RedmineKeys.UPDATED_ON)]
-        public DateTime? UpdatedOn { get; set; }
+        public DateTime? UpdatedOn { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the attachments.
+        /// Gets the attachments.
         /// </summary>
         /// <value>
         /// The attachments.
         /// </value>
-        [XmlArray(RedmineKeys.ATTACHMENTS)]
-        [XmlArrayItem(RedmineKeys.ATTACHMENT)]
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
@@ -91,23 +86,16 @@ namespace Redmine.Api.Types
         /// The uploads.
         /// </value>
         /// <remarks>Availability starting with redmine version 3.3</remarks>
-        [XmlArray(RedmineKeys.UPLOADS)]
-        [XmlArrayItem(RedmineKeys.UPLOAD)]
         public IList<Upload> Uploads { get; set; }
+        #endregion
 
         #region Implementation of IXmlSerializable
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public XmlSchema GetSchema() { return null; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="reader"></param>
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             reader.Read();
             while (!reader.EOF)
@@ -121,23 +109,14 @@ namespace Redmine.Api.Types
                 switch (reader.Name)
                 {
                     case RedmineKeys.ID: Id = reader.ReadElementContentAsInt(); break;
-
-                    case RedmineKeys.TITLE: Title = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.TEXT: Text = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.COMMENTS: Comments = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.VERSION: Version = reader.ReadElementContentAsInt(); break;
-
-                    case RedmineKeys.AUTHOR: Author = new IdentifiableName(reader); break;
-
-                    case RedmineKeys.CREATED_ON: CreatedOn = reader.ReadElementContentAsNullableDateTime(); break;
-
-                    case RedmineKeys.UPDATED_ON: UpdatedOn = reader.ReadElementContentAsNullableDateTime(); break;
-
                     case RedmineKeys.ATTACHMENTS: Attachments = reader.ReadElementContentAsCollection<Attachment>(); break;
-
+                    case RedmineKeys.AUTHOR: Author = new IdentifiableName(reader); break;
+                    case RedmineKeys.COMMENTS: Comments = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.CREATED_ON: CreatedOn = reader.ReadElementContentAsNullableDateTime(); break;
+                    case RedmineKeys.TEXT: Text = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.TITLE: Title = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.UPDATED_ON: UpdatedOn = reader.ReadElementContentAsNullableDateTime(); break;
+                    case RedmineKeys.VERSION: Version = reader.ReadElementContentAsInt(); break;
                     default: reader.Read(); break;
                 }
             }
@@ -147,14 +126,65 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         /// <param name="writer"></param>
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteElementString(RedmineKeys.TEXT, Text);
             writer.WriteElementString(RedmineKeys.COMMENTS, Comments);
-            writer.WriteValueOrEmpty<int>(Version, RedmineKeys.VERSION);
-            writer.WriteArray(Uploads, RedmineKeys.UPLOADS);
+            writer.WriteValueOrEmpty<int>(RedmineKeys.VERSION, Version);
+            writer.WriteArray(RedmineKeys.UPLOADS, Uploads);
         }
 
+        #endregion
+
+        #region Implementation of IJsonSerialization
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public override void ReadJson(JsonReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
+
+                if (reader.TokenType != JsonToken.PropertyName)
+                {
+                    continue;
+                }
+
+                switch (reader.Value)
+                {
+                    case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
+                    case RedmineKeys.ATTACHMENTS: Attachments = reader.ReadAsCollection<Attachment>(); break;
+                    case RedmineKeys.AUTHOR: Author = new IdentifiableName(reader); break;
+                    case RedmineKeys.COMMENTS: Comments = reader.ReadAsString(); break;
+                    case RedmineKeys.CREATED_ON: CreatedOn = reader.ReadAsDateTime(); break;
+                    case RedmineKeys.TEXT: Text = reader.ReadAsString(); break;
+                    case RedmineKeys.TITLE: Title = reader.ReadAsString(); break;
+                    case RedmineKeys.UPDATED_ON: UpdatedOn = reader.ReadAsDateTime(); break;
+                    case RedmineKeys.VERSION: Version = reader.ReadAsInt(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        public override void WriteJson(JsonWriter writer)
+        {
+            using (new JsonObject(writer, RedmineKeys.WIKI_PAGE))
+            {
+                writer.WriteProperty(RedmineKeys.TEXT, Text);
+                writer.WriteProperty(RedmineKeys.COMMENTS, Comments);
+                writer.WriteValueOrEmpty<int>(RedmineKeys.VERSION, Version);
+                writer.WriteArray(RedmineKeys.UPLOADS, Uploads);
+            }
+        }
         #endregion
 
         #region Implementation of IEquatable<WikiPage>
@@ -164,7 +194,7 @@ namespace Redmine.Api.Types
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(WikiPage other)
+        public override bool Equals(WikiPage other)
         {
             if (other == null) return false;
 
@@ -198,17 +228,18 @@ namespace Redmine.Api.Types
                 return hashCode;
             }
         }
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[WikiPage: {8}, Title={0}, Text={1}, Comments={2}, Version={3}, Author={4}, CreatedOn={5}, UpdatedOn={6}, Attachments={7}]",
-                Title, Text, Comments, Version, Author, CreatedOn, UpdatedOn, Attachments, base.ToString());
-        }
+        private string DebuggerDisplay => $@"[{nameof(WikiPage)}: {ToString()}, Title={Title}, Text={Text}, Comments={Comments}, 
+Version={Version.ToString(CultureInfo.InvariantCulture)}, 
+Author={Author}, 
+CreatedOn={CreatedOn?.ToString("u")}, 
+UpdatedOn={UpdatedOn?.ToString("u")}, 
+Attachments={Attachments.Dump()}]";
 
-        #endregion
     }
 }

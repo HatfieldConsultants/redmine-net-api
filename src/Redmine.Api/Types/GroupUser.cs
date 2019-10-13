@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+using System.Diagnostics;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Redmine.Api.Types
@@ -21,16 +23,22 @@ namespace Redmine.Api.Types
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.USER)]
-    public class GroupUser : IdentifiableName
+    public sealed class GroupUser : IdentifiableName, IValue
     {
+        #region Implementation of IValue
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Value => Id.ToString(CultureInfo.InvariantCulture);
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-		public override string ToString ()
-		{
-			return string.Format ("[GroupUser: {0}]", base.ToString());
-		}
+        private string DebuggerDisplay => $"[{nameof(GroupUser)}: {ToString()}]";
+
     }
 }

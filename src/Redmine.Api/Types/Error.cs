@@ -15,46 +15,45 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Redmine.Api.Extensions;
 using Redmine.Api.Internals;
+using Redmine.Api.Internals.Serialization;
 
 namespace Redmine.Api.Types
 {
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.ERROR)]
-    public class Error : IXmlSerializable, IEquatable<Error>
+    public sealed class Error : IXmlSerializable, IJsonSerializable, IEquatable<Error>
     {
         /// <summary>
         /// 
         /// </summary>
-        [XmlText]
-        public string Info { get; set; }
+        public Error() { }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(Error other)
+        internal Error(string info)
         {
-            if (other == null) return false;
-
-            return Info.Equals(other.Info);
+            Info = info;
         }
 
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[Error: Info={0}]", Info);
-        }
+        public string Info { get; private set; }
+        #endregion
 
+        #region Implementation of IXmlSerialization
         /// <summary>
         /// 
         /// </summary>
@@ -69,12 +68,6 @@ namespace Redmine.Api.Types
         {
             while (!reader.EOF)
             {
-                if (reader.IsEmptyElement && !reader.HasAttributes)
-                {
-                    reader.Read();
-                    continue;
-                }
-
                 switch (reader.Name)
                 {
                     case RedmineKeys.ERROR: Info = reader.ReadElementContentAsString(); break;
@@ -89,6 +82,46 @@ namespace Redmine.Api.Types
         /// </summary>
         /// <param name="writer"></param>
         public void WriteXml(XmlWriter writer) { }
+        #endregion
+
+        #region Implementation of IJsonSerialization
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public void ReadJson(JsonReader reader)
+        {
+            if (reader.TokenType == JsonToken.PropertyName)
+            {
+                reader.Read();
+            }
+
+            if (reader.TokenType == JsonToken.String)
+            {
+                Info = (string)reader.Value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        public void WriteJson(JsonWriter writer) { }
+        #endregion
+
+        #region Implementation of IEquatable
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Error other)
+        {
+            if (other == null) return false;
+
+            return Info.Equals(other.Info);
+        }
 
         /// <summary>
         /// 
@@ -116,5 +149,13 @@ namespace Redmine.Api.Types
                 return hashCode;
             }
         }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string DebuggerDisplay => $"[{nameof(Error)}: {Info}]";
+
     }
 }

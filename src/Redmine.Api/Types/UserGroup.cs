@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace Redmine.Api.Types
@@ -21,16 +22,15 @@ namespace Redmine.Api.Types
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.GROUP)]
-    public class UserGroup : IdentifiableName
+    public sealed class UserGroup : IdentifiableName
     {
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-		public override string ToString ()
-		{
-			return string.Format ("[UserGroup: {0}]", base.ToString());
-		}
+        private string DebuggerDisplay => $"[{nameof(UserGroup)}: {ToString()}]";
+
     }
 }

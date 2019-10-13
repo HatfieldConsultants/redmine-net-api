@@ -14,18 +14,23 @@
    limitations under the License.
 */
 
+using System.Diagnostics;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Redmine.Api.Extensions;
+
 
 namespace Redmine.Api.Types
 {
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.TRACKER)]
-    public class TrackerCustomField : Tracker
+    public sealed class TrackerCustomField : Tracker
     {
+        #region Implementation of IXmlSerialization
         /// <summary>
         /// 
         /// </summary>
@@ -36,14 +41,43 @@ namespace Redmine.Api.Types
             Name = reader.GetAttribute(RedmineKeys.NAME);
             reader.Read();
         }
+        #endregion
+
+        #region Implementation of IJsonSerialization
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public override void ReadJson(JsonReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
+
+                if (reader.TokenType != JsonToken.PropertyName)
+                {
+                    continue;
+                }
+
+                switch (reader.Value)
+                {
+                    case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
+                    case RedmineKeys.NAME: Name = reader.ReadAsString(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-		public override string ToString ()
-		{
-			return string.Format ("[TrackerCustomField: {0}]", base.ToString());
-		}
+        private string DebuggerDisplay => $"[{nameof(TrackerCustomField)}: {ToString()}]";
+
     }
 }

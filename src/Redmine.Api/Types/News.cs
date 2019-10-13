@@ -15,9 +15,10 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Redmine.Api.Extensions;
 using Redmine.Api.Internals;
 
@@ -26,62 +27,54 @@ namespace Redmine.Api.Types
     /// <summary>
     /// Availability 1.1
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.NEWS)]
-    public class News : Identifiable<News>, IEquatable<News>, IXmlSerializable
+    public sealed class News : Identifiable<News>
     {
+        #region Properties
         /// <summary>
         /// Gets or sets the project.
         /// </summary>
         /// <value>The project.</value>
-        [XmlElement(RedmineKeys.PROJECT)]
-        public IdentifiableName Project { get; set; }
+        public IdentifiableName Project { get; internal set; }
 
         /// <summary>
         /// Gets or sets the author.
         /// </summary>
         /// <value>The author.</value>
-        [XmlElement(RedmineKeys.AUTHOR)]
-        public IdentifiableName Author { get; set; }
+        public IdentifiableName Author { get; internal set; }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>The title.</value>
-        [XmlElement(RedmineKeys.TITLE)]
-        public String Title { get; set; }
+        public string Title { get; internal set; }
 
         /// <summary>
         /// Gets or sets the summary.
         /// </summary>
         /// <value>The summary.</value>
-        [XmlElement(RedmineKeys.SUMMARY)]
-        public String Summary { get; set; }
+        public string Summary { get; internal set; }
 
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
         /// <value>The description.</value>
-        [XmlElement(RedmineKeys.DESCRIPTION)]
-        public String Description { get; set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         /// Gets or sets the created on.
         /// </summary>
         /// <value>The created on.</value>
-        [XmlElement(RedmineKeys.CREATED_ON, IsNullable = true)]
-        public DateTime? CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; internal set; }
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public XmlSchema GetSchema() { return null; }
-
+        #region Implementation of IXmlSerialization
         /// <summary>
         /// 
         /// </summary>
         /// <param name="reader"></param>
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             reader.Read();
             while (!reader.EOF)
@@ -95,36 +88,59 @@ namespace Redmine.Api.Types
                 switch (reader.Name)
                 {
                     case RedmineKeys.ID: Id = reader.ReadElementContentAsInt(); break;
-
-                    case RedmineKeys.PROJECT: Project = new IdentifiableName(reader); break;
-
                     case RedmineKeys.AUTHOR: Author = new IdentifiableName(reader); break;
-
-                    case RedmineKeys.TITLE: Title = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.SUMMARY: Summary = reader.ReadElementContentAsString(); break;
-
-                    case RedmineKeys.DESCRIPTION: Description = reader.ReadElementContentAsString(); break;
-
                     case RedmineKeys.CREATED_ON: CreatedOn = reader.ReadElementContentAsNullableDateTime(); break;
-
+                    case RedmineKeys.DESCRIPTION: Description = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.PROJECT: Project = new IdentifiableName(reader); break;
+                    case RedmineKeys.SUMMARY: Summary = reader.ReadElementContentAsString(); break;
+                    case RedmineKeys.TITLE: Title = reader.ReadElementContentAsString(); break;
                     default: reader.Read(); break;
                 }
             }
         }
+        #endregion
 
+        #region Implementation of IJsonSerialization
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="writer"></param>
-        public void WriteXml(XmlWriter writer) { }
+        /// <param name="reader"></param>
+        public override void ReadJson(JsonReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
 
+                if (reader.TokenType != JsonToken.PropertyName)
+                {
+                    continue;
+                }
+
+                switch (reader.Value)
+                {
+                    case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
+                    case RedmineKeys.AUTHOR: Author = new IdentifiableName(reader); break;
+                    case RedmineKeys.CREATED_ON: CreatedOn = reader.ReadAsDateTime(); break;
+                    case RedmineKeys.DESCRIPTION: Description = reader.ReadAsString(); break;
+                    case RedmineKeys.PROJECT: Project = new IdentifiableName(reader); break;
+                    case RedmineKeys.SUMMARY: Summary = reader.ReadAsString(); break;
+                    case RedmineKeys.TITLE: Title = reader.ReadAsString(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+        #endregion
+
+        #region Implementation of IEquatable<News>
         /// <summary>
         /// 
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(News other)
+        public override bool Equals(News other)
         {
             if (other == null) return false;
             return (Id == other.Id
@@ -135,7 +151,7 @@ namespace Redmine.Api.Types
                 && Description == other.Description
                 && CreatedOn == other.CreatedOn);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -154,15 +170,13 @@ namespace Redmine.Api.Types
                 return hashCode;
             }
         }
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[News: {6}, Project={0}, Author={1}, Title={2}, Summary={3}, Description={4}, CreatedOn={5}]",
-                Project, Author, Title, Summary, Description, CreatedOn, base.ToString());
-        }
+        private string DebuggerDisplay => $"[{nameof(News)}: {ToString()}, Project={Project}, Author={Author}, Title={Title}, Summary={Summary}, Description={Description}, CreatedOn={CreatedOn?.ToString("u")}]";
+
     }
 }

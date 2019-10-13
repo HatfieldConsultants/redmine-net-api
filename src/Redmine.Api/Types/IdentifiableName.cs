@@ -14,11 +14,11 @@
    limitations under the License.
 */
 
-using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Redmine.Api.Extensions;
 using Redmine.Api.Internals;
 
 namespace Redmine.Api.Types
@@ -26,14 +26,13 @@ namespace Redmine.Api.Types
     /// <summary>
     /// 
     /// </summary>
-    public class IdentifiableName : Identifiable<IdentifiableName>, IXmlSerializable, IEquatable<IdentifiableName>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
+    public class IdentifiableName : Identifiable<IdentifiableName>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentifiableName"/> class.
         /// </summary>
-        public IdentifiableName()
-        {
-        }
+        public IdentifiableName() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentifiableName"/> class.
@@ -44,31 +43,41 @@ namespace Redmine.Api.Types
             Initialize(reader);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public IdentifiableName(JsonReader reader)
+        {
+            InitializeJsonReader(reader);
+        }
+
         private void Initialize(XmlReader reader)
         {
             ReadXml(reader);
         }
 
+        private void InitializeJsonReader(JsonReader reader)
+        {
+            ReadJson(reader);
+        }
+
+        #region Properties
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>The name.</value>
-        [XmlAttribute(RedmineKeys.NAME)]
-        public String Name { get; set; }
+        public string Name { get; internal set; }
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public XmlSchema GetSchema() { return null; }
+        #region Implementation of IXmlSerializable
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="reader"></param>
-        public virtual void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
-            Id = Convert.ToInt32(reader.GetAttribute(RedmineKeys.ID));
+            Id = reader.ReadAttributeAsInt(RedmineKeys.ID);
             Name = reader.GetAttribute(RedmineKeys.NAME);
             reader.Read();
         }
@@ -77,26 +86,61 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         /// <param name="writer"></param>
-        public virtual void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString(RedmineKeys.ID, Id.ToString(CultureInfo.InvariantCulture));
             writer.WriteAttributeString(RedmineKeys.NAME, Name);
         }
+
+        #endregion
+
+        #region Implementation of IJsonSerializable
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        /// <param name="reader"></param>
+        public override void ReadJson(JsonReader reader)
         {
-            return string.Format("[IdentifiableName: Id={0}, Name={1}]", Id, Name);
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
+
+                if (reader.TokenType == JsonToken.PropertyName)
+                {
+                    switch (reader.Value)
+                    {
+                        case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
+                        case RedmineKeys.NAME: Name = reader.ReadAsString(); break;
+                        default: reader.Read(); break;
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="writer"></param>
+        public override void WriteJson(JsonWriter writer)
+        {
+            writer.WriteIdIfNotNull(RedmineKeys.ID, this);
+            if (!Name.IsNullOrWhiteSpace())
+            {
+                writer.WriteProperty(RedmineKeys.NAME, Name);
+            }
+        }
+        #endregion
+
+        #region Implementation of IEquatable<IdentifiableName>
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(IdentifiableName other)
+        public override bool Equals(IdentifiableName other)
         {
             if (other == null) return false;
             return (Id == other.Id && Name == other.Name);
@@ -115,5 +159,13 @@ namespace Redmine.Api.Types
                 return hashCode;
             }
         }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string DebuggerDisplay => $"[{nameof(IdentifiableName)}: {base.ToString()}, Name={Name}]";
+
     }
 }

@@ -15,23 +15,104 @@
 */
 
 using System;
+using System.Diagnostics;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Redmine.Api.Internals;
+using Redmine.Api.Internals.Serialization;
 
 namespace Redmine.Api.Types
 {
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.PERMISSION)]
-    public class Permission : IEquatable<Permission>
+    public sealed class Permission : IXmlSerializable, IJsonSerializable, IEquatable<Permission>
     {
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
-        [XmlText]
-        public string Info { get; set; }
+        public string Info { get; internal set; }
+        #endregion
 
+        #region Implementation of IXmlSerializable
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public XmlSchema GetSchema() { return null; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public void ReadXml(XmlReader reader)
+        {
+            reader.Read();
+            while (!reader.EOF)
+            {
+                if (reader.IsEmptyElement && !reader.HasAttributes)
+                {
+                    reader.Read();
+                    continue;
+                }
+
+                switch (reader.Name)
+                {
+                    case RedmineKeys.PERMISSION: Info = reader.ReadElementContentAsString(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        public void WriteXml(XmlWriter writer) { }
+
+        #endregion
+
+        #region Implementation of IJsonSerialization
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        public void ReadJson(JsonReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.EndObject)
+                {
+                    return;
+                }
+
+                if (reader.TokenType != JsonToken.PropertyName)
+                {
+                    continue;
+                }
+
+                switch (reader.Value)
+                {
+                    case RedmineKeys.PERMISSION: Info = reader.ReadAsString(); break;
+                    default: reader.Read(); break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        public void WriteJson(JsonWriter writer) { }
+        #endregion
+
+        #region Implementation of IEquatable<Permission>
         /// <summary>
         /// 
         /// </summary>
@@ -39,7 +120,7 @@ namespace Redmine.Api.Types
         /// <returns></returns>
         public bool Equals(Permission other)
         {
-            return Info == other.Info;
+            return other != null && Info == other.Info;
         }
 
         /// <summary>
@@ -68,14 +149,13 @@ namespace Redmine.Api.Types
                 return hashCode;
             }
         }
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[Permission: Info={0}]", Info);
-        }
+        private string DebuggerDisplay => $"[{nameof(Permission)}: {Info}]";
+
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
    Copyright 2011 - 2019 Adrian Popescu.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,29 +14,24 @@
    limitations under the License.
 */
 
-using System.Diagnostics;
-using System.Xml.Serialization;
-
 namespace Redmine.Api.Types
 {
     /// <summary>
     /// 
     /// </summary>
-    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
-    [XmlRoot(RedmineKeys.ROLE)]
-    public sealed class CustomFieldRole : IdentifiableName
+    public enum VersionStatus
     {
-        internal CustomFieldRole(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        private string DebuggerDisplay => $"[{nameof(CustomFieldRole)}: {ToString()}]";
-
+        open = 1,
+        /// <summary>
+        /// 
+        /// </summary>
+        locked,
+        /// <summary>
+        /// 
+        /// </summary>
+        closed
     }
 }

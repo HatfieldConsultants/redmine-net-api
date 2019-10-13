@@ -1,4 +1,4 @@
-/*
+﻿/*
    Copyright 2011 - 2019 Adrian Popescu.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,15 @@ namespace Redmine.Api.Types
     /// 
     /// </summary>
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
-    [XmlRoot(RedmineKeys.ROLE)]
-    public sealed class CustomFieldRole : IdentifiableName
+    [XmlRoot(RedmineKeys.TIME_ENTRY_ACTIVITY)]
+    public sealed class ProjectTimeEntryActivity : IdentifiableName
     {
-        internal CustomFieldRole(int id, string name)
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectTimeEntryActivity() { }
+
+        internal ProjectTimeEntryActivity(int id, string name)
         {
             Id = id;
             Name = name;
@@ -36,7 +41,7 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         /// <returns></returns>
-        private string DebuggerDisplay => $"[{nameof(CustomFieldRole)}: {ToString()}]";
+        private string DebuggerDisplay => $"[{nameof(ProjectTimeEntryActivity)}: {ToString()}]";
 
     }
 }

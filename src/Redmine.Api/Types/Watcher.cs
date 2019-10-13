@@ -15,6 +15,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace Redmine.Api.Types
@@ -22,32 +23,19 @@ namespace Redmine.Api.Types
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
     [XmlRoot(RedmineKeys.USER)]
-    public class Watcher : IdentifiableName, IValue, ICloneable
+    public sealed class Watcher : IdentifiableName, IValue, ICloneable
     {
-        #region IValue implementation
+        #region Implementation of IValue 
         /// <summary>
         /// 
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return Id.ToString();
-            }
-        }
+        public string Value => Id.ToString();
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[Watcher: {0}]", base.ToString());
-        }
-
+        #region Implementation of ICloneable 
         /// <summary>
         /// 
         /// </summary>
@@ -57,5 +45,13 @@ namespace Redmine.Api.Types
             var watcher = new Watcher { Id = Id, Name = Name };
             return watcher;
         }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string DebuggerDisplay => $"[{nameof(Watcher)}: {ToString()}]";
+
     }
 }
