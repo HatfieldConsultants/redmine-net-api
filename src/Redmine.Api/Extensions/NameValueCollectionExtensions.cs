@@ -15,6 +15,7 @@
 */
 
 using System.Collections.Specialized;
+using System.Text;
 using Redmine.Api.Extensions;
 
 namespace Redmine.Api.Extensions
@@ -40,6 +41,33 @@ namespace Redmine.Api.Extensions
             var value = parameters.Get(parameterName);
             
             return value.IsNullOrWhiteSpace() ? null : value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="requestParameters"></param>
+        /// <returns></returns>
+        public static string ToQuery(this NameValueCollection requestParameters)
+        {
+            if (requestParameters == null || requestParameters.Count == 0)
+            {
+                return null;
+            }
+
+            var stringBuilder = new StringBuilder();
+            var str = string.Empty;
+            for (var index = 0; index < requestParameters.Count; ++index)
+            {
+                stringBuilder.Append(str).Append(requestParameters.AllKeys[index]).Append('=')
+                   .Append(requestParameters[index]);
+                str = "&";
+            }
+
+            stringBuilder.Insert(0, "?");
+
+            return stringBuilder.ToString();
+
         }
     }
 }

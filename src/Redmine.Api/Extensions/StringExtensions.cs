@@ -17,6 +17,11 @@
 
 using System;
 using System.Globalization;
+using System.IO;
+using System.Text;
+#if!(NET20 || NET40)
+using System.Threading.Tasks;
+#endif
 
 namespace Redmine.Api.Extensions
 {
@@ -82,5 +87,28 @@ namespace Redmine.Api.Extensions
 
             return new Uri(string.Format(CultureInfo.InvariantCulture, pattern, args), UriKind.Relative);
         }
+
+        #if!(NET20 || NET40)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="encoding">default Encoding.UTF8</param>
+        /// <returns></returns>
+        public static async Task<string> ReadStringAsync(this Stream stream, Encoding encoding = null)
+        {
+            if (encoding == null)
+            {
+                encoding = Encoding.UTF8;
+            }
+
+            using (var reader = new StreamReader(stream, encoding))
+            {
+                string text = await reader.ReadToEndAsync().ConfigureAwait(false);
+
+                return text;
+            }
+        }
+        #endif
     }
 }

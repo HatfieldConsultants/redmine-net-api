@@ -31,31 +31,31 @@ namespace Redmine.Api.Internals
     {
         /// <summary>
         /// </summary>
-         const string REQUEST_FORMAT = "{0}/{1}/{2}.{3}";
+        const string REQUEST_FORMAT = "{0}/{1}/{2}.{3}";
 
         /// <summary>
         /// </summary>
-         const string FORMAT = "{0}/{1}.{2}";
+        const string FORMAT = "{0}/{1}.{2}";
 
         /// <summary>
         /// </summary>
-         const string WIKI_INDEX_FORMAT = "{0}/projects/{1}/wiki/index.{2}";
+        const string WIKI_INDEX_FORMAT = "{0}/projects/{1}/wiki/index.{2}";
 
         /// <summary>
         /// </summary>
-         const string WIKI_PAGE_FORMAT = "{0}/projects/{1}/wiki/{2}.{3}";
+        const string WIKI_PAGE_FORMAT = "{0}/projects/{1}/wiki/{2}.{3}";
 
         /// <summary>
         /// </summary>
-         const string WIKI_VERSION_FORMAT = "{0}/projects/{1}/wiki/{2}/{3}.{4}";
+        const string WIKI_VERSION_FORMAT = "{0}/projects/{1}/wiki/{2}/{3}.{4}";
 
         /// <summary>
         /// </summary>
-         const string ENTITY_WITH_PARENT_FORMAT = "{0}/{1}/{2}/{3}.{4}";
+        const string ENTITY_WITH_PARENT_FORMAT = "{0}/{1}/{2}/{3}.{4}";
 
         /// <summary>
         /// </summary>
-         const string ATTACHMENT_UPDATE_FORMAT = "{0}/attachments/issues/{1}.{2}";
+        const string ATTACHMENT_UPDATE_FORMAT = "{0}/attachments/issues/{1}.{2}";
 
         /// <summary>
         /// 
@@ -81,9 +81,9 @@ namespace Redmine.Api.Internals
         {
             var type = typeof(T);
 
-            if (!RedmineManager.Sufixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
+            if (!RedmineManager.Suffixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
 
-            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Sufixes[type], id,
+            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Suffixes[type], id,
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -104,19 +104,19 @@ namespace Redmine.Api.Internals
         {
             var type = typeof(T);
 
-            if (!RedmineManager.Sufixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
+            if (!RedmineManager.Suffixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
 
             if (type == typeof(Version) || type == typeof(IssueCategory) || type == typeof(ProjectMembership))
             {
                 if (string.IsNullOrEmpty(ownerId)) throw new RedmineException("The owner id(project id) is mandatory!");
                 return string.Format(ENTITY_WITH_PARENT_FORMAT, redmineManager.Host, RedmineKeys.PROJECTS,
-                    ownerId, RedmineManager.Sufixes[type], redmineManager.MimeFormat.ToString().ToLower());
+                    ownerId, RedmineManager.Suffixes[type], redmineManager.MimeFormat.ToString().ToLower());
             }
             if (type == typeof(IssueRelation))
             {
                 if (string.IsNullOrEmpty(ownerId)) throw new RedmineException("The owner id(issue id) is mandatory!");
                 return string.Format(ENTITY_WITH_PARENT_FORMAT, redmineManager.Host, RedmineKeys.ISSUES,
-                    ownerId, RedmineManager.Sufixes[type], redmineManager.MimeFormat.ToString().ToLower());
+                    ownerId, RedmineManager.Suffixes[type], redmineManager.MimeFormat.ToString().ToLower());
             }
 
             if (type == typeof(File))
@@ -128,7 +128,7 @@ namespace Redmine.Api.Internals
                 return string.Format(FILE_URL_FORMAT, redmineManager.Host, ownerId, redmineManager.MimeFormat.ToString().ToLower());
             }
 
-            return string.Format(FORMAT, redmineManager.Host, RedmineManager.Sufixes[type],
+            return string.Format(FORMAT, redmineManager.Host, RedmineManager.Suffixes[type],
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -145,9 +145,9 @@ namespace Redmine.Api.Internals
         {
             var type = typeof(T);
 
-            if (!RedmineManager.Sufixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
+            if (!RedmineManager.Suffixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
 
-            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Sufixes[type], id,
+            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Suffixes[type], id,
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -163,9 +163,9 @@ namespace Redmine.Api.Internals
         {
             var type = typeof(T);
 
-            if (!RedmineManager.Sufixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
+            if (!RedmineManager.Suffixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
 
-            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Sufixes[type], id,
+            return string.Format(REQUEST_FORMAT, redmineManager.Host, RedmineManager.Suffixes[type], id,
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -187,7 +187,7 @@ namespace Redmine.Api.Internals
         {
             var type = typeof(T);
 
-            if (!RedmineManager.Sufixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
+            if (!RedmineManager.Suffixes.ContainsKey(type)) throw new KeyNotFoundException(type.Name);
 
             if (type == typeof(Version) || type == typeof(IssueCategory) || type == typeof(ProjectMembership))
             {
@@ -196,7 +196,7 @@ namespace Redmine.Api.Internals
                     throw new RedmineException("The project id is mandatory! \nCheck if you have included the parameter project_id to parameters.");
 
                 return string.Format(ENTITY_WITH_PARENT_FORMAT, redmineManager.Host, RedmineKeys.PROJECTS,
-                    projectId, RedmineManager.Sufixes[type], redmineManager.MimeFormat.ToString().ToLower());
+                    projectId, RedmineManager.Suffixes[type], redmineManager.MimeFormat.ToString().ToLower());
             }
             if (type == typeof(IssueRelation))
             {
@@ -205,7 +205,7 @@ namespace Redmine.Api.Internals
                     throw new RedmineException("The issue id is mandatory! \nCheck if you have included the parameter issue_id to parameters");
 
                 return string.Format(ENTITY_WITH_PARENT_FORMAT, redmineManager.Host, RedmineKeys.ISSUES,
-                    issueId, RedmineManager.Sufixes[type], redmineManager.MimeFormat.ToString().ToLower());
+                    issueId, RedmineManager.Suffixes[type], redmineManager.MimeFormat.ToString().ToLower());
             }
 
             if (type == typeof(File))
@@ -217,9 +217,9 @@ namespace Redmine.Api.Internals
                 }
                 return string.Format(FILE_URL_FORMAT, redmineManager.Host, projectId, redmineManager.MimeFormat.ToString().ToLower());
             }
-           
-                return string.Format(FORMAT, redmineManager.Host, RedmineManager.Sufixes[type],
-                redmineManager.MimeFormat.ToString().ToLower());
+
+            return string.Format(FORMAT, redmineManager.Host, RedmineManager.Suffixes[type],
+            redmineManager.MimeFormat.ToString().ToLower());
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Redmine.Api.Internals
         public static string GetAddUserToGroupUrl(RedmineManager redmineManager, int groupId)
         {
             return string.Format(REQUEST_FORMAT, redmineManager.Host,
-                RedmineManager.Sufixes[typeof(Group)],
+                RedmineManager.Suffixes[typeof(Group)],
                 groupId + "/users", redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -277,7 +277,7 @@ namespace Redmine.Api.Internals
         public static string GetRemoveUserFromGroupUrl(RedmineManager redmineManager, int groupId, int userId)
         {
             return string.Format(REQUEST_FORMAT, redmineManager.Host,
-                RedmineManager.Sufixes[typeof(Group)],
+                RedmineManager.Suffixes[typeof(Group)],
                 groupId + "/users/" + userId, redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -300,7 +300,7 @@ namespace Redmine.Api.Internals
         public static string GetCurrentUserUrl(RedmineManager redmineManager)
         {
             return string.Format(REQUEST_FORMAT, redmineManager.Host,
-                RedmineManager.Sufixes[typeof(User)], CURRENT_USER_URI,
+                RedmineManager.Suffixes[typeof(User)], CURRENT_USER_URI,
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -340,7 +340,7 @@ namespace Redmine.Api.Internals
         public static string GetAddWatcherUrl(RedmineManager redmineManager, int issueId, int userId)
         {
             return string.Format(REQUEST_FORMAT, redmineManager.Host,
-                RedmineManager.Sufixes[typeof(Issue)], issueId + "/watchers",
+                RedmineManager.Suffixes[typeof(Issue)], issueId + "/watchers",
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 
@@ -354,7 +354,7 @@ namespace Redmine.Api.Internals
         public static string GetRemoveWatcherUrl(RedmineManager redmineManager, int issueId, int userId)
         {
             return string.Format(REQUEST_FORMAT, redmineManager.Host,
-                RedmineManager.Sufixes[typeof(Issue)], issueId + "/watchers/" + userId,
+                RedmineManager.Suffixes[typeof(Issue)], issueId + "/watchers/" + userId,
                 redmineManager.MimeFormat.ToString().ToLower());
         }
 

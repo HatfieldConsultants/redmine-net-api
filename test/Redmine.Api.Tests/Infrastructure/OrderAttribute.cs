@@ -1,6 +1,6 @@
 using System;
 
-namespace redmine.net.api.Tests.Infrastructure
+namespace Redmine.Api.Tests.Infrastructure
 {
     public class OrderAttribute : Attribute
     {

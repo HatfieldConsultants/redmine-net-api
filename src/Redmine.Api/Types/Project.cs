@@ -33,6 +33,43 @@ namespace Redmine.Api.Types
     [XmlRoot(RedmineKeys.PROJECT)]
     public sealed class Project : IdentifiableName, IEquatable<Project>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public Project()
+        {
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public Project(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        internal Project(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
         #region Properties
         /// <summary>
         /// Gets or sets the identifier.
@@ -120,7 +157,7 @@ namespace Redmine.Api.Types
         /// <value>
         /// The custom fields.
         /// </value>
-        public IList<IssueCustomField> CustomFields { get; internal set; }
+        public IList<IssueCustomField> CustomFields { get; set; }
 
         /// <summary>
         /// Gets the issue categories.
@@ -182,11 +219,13 @@ namespace Redmine.Api.Types
         /// <param name="writer"></param>
         public override void WriteXml(XmlWriter writer)
         {
-            writer.WriteElementString(RedmineKeys.NAME, Name);
-            writer.WriteElementString(RedmineKeys.IDENTIFIER, Identifier);
+            writer.WriteIfNotDefaultOrNull(RedmineKeys.NAME, Name);
+            writer.WriteIfNotDefaultOrNull(RedmineKeys.IDENTIFIER, Identifier);
 
             writer.WriteIfNotDefaultOrNull(RedmineKeys.DESCRIPTION, Description);
+            //TODO: only if redmine version >= 4.1.0
             writer.WriteIfNotDefaultOrNull(RedmineKeys.INHERIT_MEMBERS, InheritMembers);
+            
             writer.WriteIfNotDefaultOrNull(RedmineKeys.IS_PUBLIC, IsPublic);
             writer.WriteIfNotDefaultOrNull(RedmineKeys.HOMEPAGE, HomePage);
 
@@ -261,7 +300,9 @@ namespace Redmine.Api.Types
                 writer.WriteProperty(RedmineKeys.IDENTIFIER, Identifier);
                 writer.WriteIfNotDefaultOrNull(RedmineKeys.DESCRIPTION, Description);
                 writer.WriteIfNotDefaultOrNull(RedmineKeys.HOMEPAGE, HomePage);
+                //TODO: only if redmine version >= 4.1.0
                 writer.WriteIfNotDefaultOrNull(RedmineKeys.INHERIT_MEMBERS, InheritMembers);
+
                 writer.WriteIfNotDefaultOrNull(RedmineKeys.IS_PUBLIC, IsPublic);
                 writer.WriteIfNotNull(RedmineKeys.PARENT_ID, Parent);
                 writer.WriteRepeatableElement(RedmineKeys.TRACKER_IDS, (IEnumerable<IValue>)Trackers);

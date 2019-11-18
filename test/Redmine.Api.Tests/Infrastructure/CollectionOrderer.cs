@@ -1,13 +1,14 @@
-#if !(NET20 || NET40)
 
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Reflection;
 using Xunit;
 using Xunit.Abstractions;
+#if !(NET20 || NET40)
+using System;
+using System.Collections.Generic;
 
-namespace redmine.net.api.Tests.Infrastructure
+namespace Redmine.Api.Tests.Infrastructure
 {
     /// <summary>
     ///     Custom xUnit test collection orderer that uses the OrderAttribute

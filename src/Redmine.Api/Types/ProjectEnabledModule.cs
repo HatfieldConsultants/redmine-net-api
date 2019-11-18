@@ -37,7 +37,7 @@ namespace Redmine.Api.Types
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="moduleName"></param>
+        /// <param name="moduleName">boards, calendar, documents, files, gant, issue_tracking, news, repository, time_tracking, wiki.</param>
         public ProjectEnabledModule(string moduleName)
         {
             if (moduleName.IsNullOrWhiteSpace())
@@ -63,6 +63,100 @@ namespace Redmine.Api.Types
         /// </summary>
         /// <returns></returns>
         private string DebuggerDisplay => $"[{nameof(ProjectEnabledModule)}: {ToString()}]";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Boards()
+        {
+            return new ProjectEnabledModule("boards");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Calendar()
+        {
+            return new ProjectEnabledModule("calendar");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Documents()
+        {
+            return new ProjectEnabledModule("documents");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Files()
+        {
+            return new ProjectEnabledModule("files");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Gant()
+        {
+            return new ProjectEnabledModule("gant");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule IssueTracking()
+        {
+            return new ProjectEnabledModule("issue_tracking");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule News()
+        {
+            return new ProjectEnabledModule("news");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Repository()
+        {
+            return new ProjectEnabledModule("repository");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule TimeTracking()
+        {
+            return new ProjectEnabledModule("time_tracking");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectEnabledModule Wiki()
+        {
+            return new ProjectEnabledModule("wiki");
+        }
 
     }
 }

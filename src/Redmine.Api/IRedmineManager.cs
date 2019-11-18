@@ -212,6 +212,14 @@ namespace Redmine.Api
         /// <returns></returns>
         T CreateObject<T>(T obj, string ownerId) where T : class, new();
        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <typeparam name="T"></typeparam>
+        void UpdateObject<T>(T obj) where T : Identifiable<T>, new();
+
         /// <summary>
         /// 
         /// </summary>
@@ -228,12 +236,7 @@ namespace Redmine.Api
         /// <typeparam name="T"></typeparam>
         void UpdateObject<T>(string id, T obj, string projectId) where T : class, new();
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <typeparam name="T"></typeparam>
-        void DeleteObject<T>(string id) where T : class, new();
+       
         /// <summary>
         /// 
         /// </summary>
@@ -242,13 +245,13 @@ namespace Redmine.Api
         /// <typeparam name="T"></typeparam>
         void DeleteObject<T>(string id, NameValueCollection parameters) where T : class, new();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="uploadFile"></param>
-        /// <returns></returns>
-        RedmineWebClient CreateWebClient(NameValueCollection parameters, bool uploadFile = false);
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="parameters"></param>
+//        /// <param name="uploadFile"></param>
+//        /// <returns></returns>
+//        RedmineWebClient CreateWebClient(NameValueCollection parameters, bool uploadFile = false);
         /// <summary>
         /// 
         /// </summary>

@@ -1,20 +1,21 @@
 
-#if !(NET20 || NET40)
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
+#if !(NET20 || NET40)
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
-namespace redmine.net.api.Tests.Infrastructure
+namespace Redmine.Api.Tests.Infrastructure
 {
     /// <summary>
     /// Custom xUnit test case orderer that uses the OrderAttribute
     /// </summary>
     public class CaseOrderer : ITestCaseOrderer
     {
-        public const string TYPE_NAME = "redmine.net.api.Tests.Infrastructure.CaseOrderer";
+        public const string TYPE_NAME = "Redmine.Api.Tests.Infrastructure.CaseOrderer";
         public const string ASSEMBLY_NAME = "Redmine.Api.Tests";
 
         public static readonly ConcurrentDictionary<string, ConcurrentQueue<string>> QueuedTests = new ConcurrentDictionary<string, ConcurrentQueue<string>>();

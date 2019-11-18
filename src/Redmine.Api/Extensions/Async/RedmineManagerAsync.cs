@@ -17,6 +17,7 @@ limitations under the License.
 
 
 #if !(NET20 || NET40)
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -24,11 +25,11 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Redmine.Api.Extensions;
+using Redmine.Api.Exceptions;
 using Redmine.Api.Internals;
 using Redmine.Api.Types;
 
-namespace Redmine.Api.Async
+namespace Redmine.Api.Extensions.Async
 {
     /// <summary>
     /// </summary>
@@ -42,8 +43,37 @@ namespace Redmine.Api.Async
         /// <returns></returns>
         public static async Task<User> GetCurrentUserAsync(this RedmineManager redmineManager, NameValueCollection parameters = null)
         {
-            var uri = UrlHelper.GetCurrentUserUrl(redmineManager);
-            return await WebApiAsyncHelper.ExecuteDownload<User>(redmineManager, uri, "GetCurrentUserAsync", parameters).ConfigureAwait(false);
+            if (!redmineManager.FlagWebClient)
+            {
+                var uri = UrlHelper.GetCurrentUserUrl(redmineManager);
+                return await WebApiAsyncHelper.ExecuteDownload<User>(redmineManager, uri, "GetCurrentUserAsync", parameters).ConfigureAwait(false);
+            }
+            else
+            {
+                try
+                {
+                    var url = ApiUrls.CurrentUser(redmineManager.redmineConnectionSettings.Host, redmineManager.redmineConnectionSettings.Format.ToString("G").ToLowerInvariant());
+                    var result = await redmineManager.x.GetAsync(new HttpRequest(url, HttpVerbs.GET,redmineManager.redmineConnectionSettings.Headers, TimeSpan.Zero, redmineManager.redmineConnectionSettings.ContentType)).ConfigureAwait(false);
+
+                    if (!result.Body.IsNullOrWhiteSpace())
+                    {
+                        return redmineManager.Serializer.Deserialize<User>(result.Body);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    if (exception is WebException)
+                    {
+                        ((WebException)exception).HandleWebException(redmineManager.Serializer);
+                    }
+                    else
+                    {
+                        throw new RedmineException(exception.Message, exception);
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -206,7 +236,7 @@ namespace Redmine.Api.Async
                 parameters.Add(RedmineKeys.INCLUDE, string.Join(",", include));
             }
 
-            return await CountAsync<T>(redmineManager,parameters).ConfigureAwait(false);
+            return await CountAsync<T>(redmineManager, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -230,7 +260,7 @@ namespace Redmine.Api.Async
 
             try
             {
-                var tempResult = await GetPaginatedObjectsAsync<T>(redmineManager,parameters);
+                var tempResult = await GetPaginatedObjectsAsync<T>(redmineManager, parameters);
                 if (tempResult != null)
                 {
                     totalCount = tempResult.TotalItems;

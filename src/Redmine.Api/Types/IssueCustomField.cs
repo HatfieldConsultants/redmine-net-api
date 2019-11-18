@@ -33,6 +33,31 @@ namespace Redmine.Api.Types
     [XmlRoot(RedmineKeys.CUSTOM_FIELD)]
     public sealed class IssueCustomField : IdentifiableName, IEquatable<IssueCustomField>, ICloneable, IValue
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public IssueCustomField(){}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        public IssueCustomField(int id, string name = null)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
         #region Properties
         /// <summary>
         /// Gets or sets the value.

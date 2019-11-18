@@ -40,6 +40,7 @@ namespace Redmine.Api.Internals
 	    public static void ExecuteUpload(RedmineManager redmineManager, string address, string actionType, string data,
             string methodName, NameValueCollection parameters = null)
         {
+            #if NETFULL
             using (var wc = redmineManager.CreateWebClient(parameters))
             {
                 try
@@ -55,6 +56,7 @@ namespace Redmine.Api.Internals
                     webException.HandleWebException(redmineManager.Serializer);
                 }
             }
+            #endif
         }
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace Redmine.Api.Internals
             string methodName)
             where T : class, new()
         {
+#if NETFULL
             using (var wc = redmineManager.CreateWebClient(null))
             {
                 try
@@ -88,6 +91,9 @@ namespace Redmine.Api.Internals
                 }
                 return default(T);
             }
+            #else
+            return default(T);
+#endif
         }
 
         /// <summary>
@@ -103,6 +109,7 @@ namespace Redmine.Api.Internals
             NameValueCollection parameters = null)
             where T : class, new()
         {
+#if NETFULL
             using (var wc = redmineManager.CreateWebClient(parameters))
             {
                 try
@@ -119,6 +126,9 @@ namespace Redmine.Api.Internals
                 }
                 return default(T);
             }
+#else
+            return default(T);
+#endif
         }
 
         /// <summary>
@@ -134,6 +144,7 @@ namespace Redmine.Api.Internals
             string methodName,
             NameValueCollection parameters = null) where T : class, new()
         {
+#if NETFULL
             using (var wc = redmineManager.CreateWebClient(parameters))
             {
                 try
@@ -147,6 +158,9 @@ namespace Redmine.Api.Internals
                 }
                 return null;
             }
+#else
+            return null;
+#endif
         }
 
         /// <summary>
@@ -158,6 +172,7 @@ namespace Redmine.Api.Internals
         /// <returns></returns>
         public static byte[] ExecuteDownloadFile(RedmineManager redmineManager, string address, string methodName)
         {
+#if NETFULL
             using (var wc = redmineManager.CreateWebClient(null, true))
             {
                 try
@@ -170,6 +185,9 @@ namespace Redmine.Api.Internals
                 }
                 return null;
             }
+#else
+            return null;
+#endif
         }
 
         /// <summary>
@@ -182,6 +200,7 @@ namespace Redmine.Api.Internals
         /// <returns></returns>
         public static Upload ExecuteUploadFile(RedmineManager redmineManager, string address, byte[] data, string methodName)
         {
+#if NETFULL
             using (var wc = redmineManager.CreateWebClient(null, true))
             {
                 try
@@ -196,6 +215,9 @@ namespace Redmine.Api.Internals
                 }
                 return null;
             }
+#else
+            return default(Upload);
+#endif
         }
     }
 }

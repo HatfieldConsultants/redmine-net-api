@@ -48,6 +48,11 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         public bool IsDefault { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Active { get; internal  set; }
         #endregion
 
         #region Implementation of IXmlSerializable
@@ -72,6 +77,7 @@ namespace Redmine.Api.Types
                     case RedmineKeys.ID: Id = reader.ReadElementContentAsInt(); break;
                     case RedmineKeys.IS_DEFAULT: IsDefault = reader.ReadElementContentAsBoolean(); break;
                     case RedmineKeys.NAME: Name = reader.ReadElementContentAsString(); break;
+                    //TODO: active
                     default: reader.Read(); break;
                 }
             }
@@ -109,6 +115,7 @@ namespace Redmine.Api.Types
                     case RedmineKeys.ID: Id = reader.ReadAsInt(); break;
                     case RedmineKeys.IS_DEFAULT: IsDefault = reader.ReadAsBool(); break;
                     case RedmineKeys.NAME: Name = reader.ReadAsString(); break;
+                    //TODO: active
                     default: reader.Read(); break;
                 }
             }

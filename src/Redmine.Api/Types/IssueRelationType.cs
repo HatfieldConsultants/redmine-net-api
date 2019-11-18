@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+using Newtonsoft.Json;
+
 namespace Redmine.Api.Types
 {
     /// <summary>
@@ -49,13 +51,16 @@ namespace Redmine.Api.Types
         /// 
         /// </summary>
         Follows,
+       
         /// <summary>
         /// 
         /// </summary>
-        copied_to,
+        [JsonProperty("copied_to")]
+        CopiedTo,
         /// <summary>
         /// 
         /// </summary>
-        copied_from
+        [JsonProperty("copied_from")]
+        CopiedFrom
     }
 }

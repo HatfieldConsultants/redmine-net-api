@@ -31,16 +31,16 @@ namespace Redmine.Api.Types
         /// </summary>
         public ProjectTracker() { }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="trackerId">the tracker id: 1 for Bug, etc.</param>
-        /// <param name="name"></param>
-        public ProjectTracker(int trackerId, string name)
-        {
-            Id = trackerId;
-            Name = name;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="trackerId">the tracker id: 1 for Bug, etc.</param>
+        ///// <param name="name"></param>
+        //public ProjectTracker(int trackerId, string name)
+        //{
+        //    Id = trackerId;
+        //    Name = name;
+        //}
 
         /// <summary>
         /// 
