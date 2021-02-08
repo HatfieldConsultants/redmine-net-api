@@ -65,10 +65,10 @@ jobs:
     
     - name: Test
       run: |
-          echo $VERSION
+          #echo $VERSION
           echo ${{ env.VERSION }}
-          echo $github.run_number
-    
+          echo ${{github.run_number}}
+      if: runner.os != 'Windows'
 #     - name: Build
 #       run: dotnet build redmine-net-api.sln --configuration Release --no-restore --version-suffix=${{ env.VERSION }}
 
