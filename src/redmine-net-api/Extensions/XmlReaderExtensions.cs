@@ -169,7 +169,7 @@ namespace Redmine.Net.Api.Extensions
         public static List<T> ReadElementContentAsCollection<T>(this XmlReader reader) where T : class
         {
             List<T> result = null;
-            var serializer = new XmlSerializer(typeof(T));
+            XmlSerializer serializer = null;
             var outerXml = reader.ReadOuterXml();
 
             if (string.IsNullOrEmpty(outerXml))
@@ -191,7 +191,9 @@ namespace Redmine.Net.Api.Extensions
                         }
 
                         T entity;
-
+                        
+                        serializer ??= new XmlSerializer(typeof(T));
+                        
                         if (xmlTextReader.IsEmptyElement && xmlTextReader.HasAttributes)
                         {
                             entity = serializer.Deserialize(xmlTextReader) as T;
@@ -210,10 +212,7 @@ namespace Redmine.Net.Api.Extensions
 
                         if (entity != null)
                         {
-                            if (result == null)
-                            {
-                                result = new List<T>();
-                            }
+                            result ??= new List<T>();
 
                             result.Add(entity);
                         }
@@ -236,7 +235,7 @@ namespace Redmine.Net.Api.Extensions
         /// <returns></returns>
         public static IEnumerable<T> ReadElementContentAsEnumerable<T>(this XmlReader reader) where T : class
         {
-            var serializer = new XmlSerializer(typeof(T));
+            XmlSerializer serializer = null;
             var outerXml = reader.ReadOuterXml();
             
             if (string.IsNullOrEmpty(outerXml))
@@ -259,6 +258,7 @@ namespace Redmine.Net.Api.Extensions
 
                         T entity;
 
+                        serializer ??= new XmlSerializer(typeof(T));
                         if (xmlTextReader.IsEmptyElement && xmlTextReader.HasAttributes)
                         {
                             entity = serializer.Deserialize(xmlTextReader) as T;

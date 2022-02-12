@@ -69,7 +69,9 @@ namespace Redmine.Net.Api.Extensions
 
             foreach (var item in collection)
             {
-                new XmlSerializer(item.GetType()).Serialize(writer, item);
+                var serializer = new XmlSerializer(item.GetType());
+                serializer.Serialize(writer, item);
+                serializer = null;
             }
 
             writer.WriteEndElement();
@@ -97,6 +99,8 @@ namespace Redmine.Net.Api.Extensions
             {
                 serializer.Serialize(writer, item);
             }
+
+            serializer = null;
 
             writer.WriteEndElement();
         }
@@ -126,6 +130,8 @@ namespace Redmine.Net.Api.Extensions
                 serializer.Serialize(writer, f.Invoke(item));
             }
 
+            serializer = null;
+            
             writer.WriteEndElement();
         }
 
@@ -158,6 +164,8 @@ namespace Redmine.Net.Api.Extensions
                 serializer.Serialize(writer, item);
             }
 
+            serializer = null;
+            
             writer.WriteEndElement();
         }
 
@@ -249,14 +257,7 @@ namespace Redmine.Net.Api.Extensions
                 return;
             }
 
-            if (value is bool)
-            {
-                writer.WriteElementString(elementName, value.ToString().ToLowerInv());
-            }
-            else
-            {
-                writer.WriteElementString(elementName, value.ToString());
-            }
+            writer.WriteElementString(elementName, value is bool ? value.ToString().ToLowerInv() : value.ToString());
         }
 
         /// <summary>
