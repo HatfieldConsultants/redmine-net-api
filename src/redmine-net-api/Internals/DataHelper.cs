@@ -25,11 +25,11 @@ namespace Redmine.Net.Api.Internals
         /// Users the data.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        /// <param name="mimeFormat">The MIME format.</param>
+        /// <param name="redmineSerializationType">The MIME format.</param>
         /// <returns></returns>
-        public static string UserData(int userId, MimeFormat mimeFormat)
+        public static string UserData(int userId, RedmineSerializationType redmineSerializationType)
         {
-            return mimeFormat == MimeFormat.Xml
+            return redmineSerializationType == RedmineSerializationType.Xml
                 ? $"<user_id>{userId}</user_id>"
                 : $"{{\"user_id\":\"{userId}\"}}";
         }
