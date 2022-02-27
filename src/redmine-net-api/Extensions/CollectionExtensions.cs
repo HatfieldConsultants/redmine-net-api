@@ -90,11 +90,11 @@ namespace Redmine.Net.Api.Extensions
             var sb = new StringBuilder();
             foreach (var item in collection)
             {
-                sb.Append(",").Append(item);
+                sb.Append(',').Append(item);
             }
 
             sb[0] = '{';
-            sb.Append("}");
+            sb.Append('}');
 
             var str = sb.ToString();
 #if NET20
