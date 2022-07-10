@@ -30,14 +30,31 @@ using Redmine.Net.Api.Serialization;
 using Redmine.Net.Api.Types;
 using Group = Redmine.Net.Api.Types.Group;
 using Version = Redmine.Net.Api.Types.Version;
-
+#if !(NET20)
+using System.Net.Http.HttpClient;
+#endif
 namespace Redmine.Net.Api
 {
+    public interface IRedmineWebClient
+    {
+        #if(NET20)
+         WebClient Value { get; }
+        #else
+         HttpClient Value { get; }
+        #endif
+    }
+    
+   
+
+  
+    
     /// <summary>
     ///     The main class to access Redmine API.
     /// </summary>
     public class RedmineManager : IRedmineManager
     {
+        
+
         /// <summary>
         /// </summary>
         public const int DEFAULT_PAGE_SIZE_VALUE = 25;
@@ -198,10 +215,15 @@ namespace Redmine.Net.Api
             : this(host, mimeFormat, verifyServerCert, proxy, securityProtocolType, timeout: timeout)
         {
             cache = new CredentialCache { { new Uri(host), "Basic", new NetworkCredential(login, password) } };
-
             var token = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format(CultureInfo.InvariantCulture, "{0}:{1}", login, password)));
             basicAuthorization = string.Format(CultureInfo.InvariantCulture, "Basic {0}", token);
         }
+
+
+     
+
+        
+        
 
         /// <summary>
         ///     Gets the suffixes.
@@ -926,11 +948,11 @@ namespace Redmine.Net.Api
         /// <code></code>
         public virtual bool RemoteCertValidate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
-            const SslPolicyErrors ignoredErrors =
+            const SslPolicyErrors IGNORED_ERRORS =
                 SslPolicyErrors.RemoteCertificateChainErrors |
                 SslPolicyErrors.RemoteCertificateNameMismatch;
  
-            if ((sslPolicyErrors & ~ignoredErrors) == SslPolicyErrors.None)
+            if ((sslPolicyErrors & ~IGNORED_ERRORS) == SslPolicyErrors.None)
             {
                 return true;
             }

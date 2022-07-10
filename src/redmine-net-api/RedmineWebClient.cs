@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-
+#if(NET20)
 using System;
 using System.Net;
 using Redmine.Net.Api.Extensions;
@@ -251,3 +251,4 @@ namespace Redmine.Net.Api
         }
     }
 }
+#endif

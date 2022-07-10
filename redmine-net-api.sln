@@ -28,6 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		version.props = version.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "redmine-dotnet-api", "src\redmine-dotnet-api\redmine-dotnet-api.csproj", "{382E2F71-ED42-4B78-8682-62447A2CA068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "redmine-dotnet-api.tests", "tests\redmine-dotnet-api.tests\redmine-dotnet-api.tests.csproj", "{64B48F11-6374-4200-9DDF-38BA66F775FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,18 @@ Global
 		{900EF0B3-0233-45DA-811F-4C59483E8452}.DebugJson|Any CPU.ActiveCfg = DebugJson|Any CPU
 		{900EF0B3-0233-45DA-811F-4C59483E8452}.DebugJson|Any CPU.Build.0 = DebugJson|Any CPU
 		{900EF0B3-0233-45DA-811F-4C59483E8452}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.DebugJson|Any CPU.ActiveCfg = Debug|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.DebugJson|Any CPU.Build.0 = Debug|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382E2F71-ED42-4B78-8682-62447A2CA068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.DebugJson|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.DebugJson|Any CPU.Build.0 = Debug|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B48F11-6374-4200-9DDF-38BA66F775FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +69,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0E6B9B72-445D-4E71-8D29-48C4A009AB03} = {0DFF4758-5C19-4D8F-BA6C-76E618323F6A}
 		{900EF0B3-0233-45DA-811F-4C59483E8452} = {F3F4278D-6271-4F77-BA88-41555D53CBD1}
+		{382E2F71-ED42-4B78-8682-62447A2CA068} = {0DFF4758-5C19-4D8F-BA6C-76E618323F6A}
+		{64B48F11-6374-4200-9DDF-38BA66F775FD} = {F3F4278D-6271-4F77-BA88-41555D53CBD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4AA87D90-ABD0-4793-BE47-955B35FAE2BB}

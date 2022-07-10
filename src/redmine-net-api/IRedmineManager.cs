@@ -251,7 +251,7 @@ namespace Redmine.Net.Api.Types
         /// <param name="parameters"></param>
         /// <param name="uploadFile"></param>
         /// <returns></returns>
-        RedmineWebClient CreateWebClient(NameValueCollection parameters, bool uploadFile = false);
+      //  RedmineWebClient CreateWebClient(NameValueCollection parameters, bool uploadFile = false);
         /// <summary>
         /// 
         /// </summary>
@@ -262,4 +262,6 @@ namespace Redmine.Net.Api.Types
         /// <returns></returns>
         bool RemoteCertValidate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors sslPolicyErrors);
     }
+    
+    
 }
